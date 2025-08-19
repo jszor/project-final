@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",       // for React 18+
+    "moduleResolution": "Node",
+    "allowJs": true,          // let .js files coexist with .ts/.tsx
+    "checkJs": false,         // don’t enforce types in .js files
+    "strict": true,          // turn off strict mode for now
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["src"]
+}
