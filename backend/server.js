@@ -1,13 +1,11 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js"
 
 dotenv.config();
-
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
-mongoose.connect(mongoUrl);
+connectDB();
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -27,6 +25,19 @@ app.get("/", (req, res) => {
 
 // Set up endpoints
 
+// Endpoint for registering a user.
+
+// Endpoint for logging in a user.
+
+// Endpoint for retrieving the data of an authenticated user.
+
+// Endpoint for fetching inventory.
+
+// Endpoint for fething all exercise modules.
+
+// Endpoint for fetching pet stats.
+
+// Endpoint for fetching user stats. 
 
 
 // Start the server

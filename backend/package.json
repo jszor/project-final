@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Server part of final project",
   "scripts": {
-    "start": "babel-node server.js",
-    "dev": "nodemon server.js --exec babel-node"
+    "start": "NODE_ENV=production babel-node server.js",
+    "dev": "NODE_ENV=development nodemon server.js --exec babel-node"
   },
   "author": "",
   "license": "ISC",
