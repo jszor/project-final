@@ -3,6 +3,7 @@ import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js"
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -23,13 +24,12 @@ app.get("/", (req, res) => {
   });
 });
 
-// Set up endpoints
-
 // Endpoint for registering a user.
-
 // Endpoint for logging in a user.
-
 // Endpoint for retrieving the data of an authenticated user.
+
+app.use("/api/auth", authRoutes);
+
 
 // Endpoint for fetching inventory.
 
