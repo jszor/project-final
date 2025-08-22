@@ -64,6 +64,12 @@ const petSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    conditions: {
+      isPooped: { type: Boolean, default: false },
+      isSick: { type: Boolean, default: false },
+      poopTime: { type: Date },
+      sicknessTime: { type: Date },
+    },
     status: {
       type: String,
       enum: ["alive", "expired"],
