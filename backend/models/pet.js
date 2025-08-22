@@ -60,6 +60,10 @@ const petSchema = new mongoose.Schema(
         },
       },
     ],
+    lastUpdated: {
+      type: Date,
+      default: Date.now,
+    },
     status: {
       type: String,
       enum: ["alive", "expired"],
