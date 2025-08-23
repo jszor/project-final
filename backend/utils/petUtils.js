@@ -1,6 +1,6 @@
 // Pet decay util
 
-export function applyPetDecay(pet) {
+export const applyPetDecay = (pet) => {
   if (!pet || pet.status === "expired") return pet;
 
   const now = new Date();
