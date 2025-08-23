@@ -19,18 +19,18 @@ router.post("/", authenticateUser, createPet);
 router.get("/", authenticateUser, getPet);
 
 // Gameplay
-router.patch("/use-item", authenticateUser, useItem);
+// router.patch("/use-item", authenticateUser, useItem);
 
 // Progression
-router.patch("/xp", authenticateUser, addXP);
-router.patch("/coins", authenticateUser, addCoins);
+// router.patch("/xp", authenticateUser, addXP);
+// router.patch("/coins", authenticateUser, addCoins);
 
 // Inventory
-router.get("/inventory", authenticateUser, getInventory);
-router.patch("/inventory/add", authenticateUser, addItem);
-router.patch("/inventory/remove", authenticateUser, removeItem);
+// router.get("/inventory", authenticateUser, getInventory);
+// router.patch("/inventory/add", authenticateUser, addItem);
+// router.patch("/inventory/remove", authenticateUser, removeItem);
 
 // Leaderboard
-router.get("/leaderboard", authenticateUser, getLeaderboard);
+// router.get("/leaderboard", authenticateUser, getLeaderboard);
 
 export default router;
