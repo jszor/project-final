@@ -4,6 +4,7 @@ import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
+import petRoutes from "./routes/petRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -30,15 +31,16 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
+// Endpoint for fetching pet.
+// Endpoint for fetching pet inventory.
+// Endpoint for adding item to inventory.
+// Endpoint for removing item from inventory. 
+// Endpoint for using items on pet.
+// Endpoint for adding XP to pet.
+// Endpoint for adding coins to pet.
+// Endpoint for calculating position on leaderboard.
 
-// Endpoint for fetching inventory.
-
-// Endpoint for fething all exercise modules.
-
-// Endpoint for fetching pet stats.
-
-// Endpoint for fetching user stats. 
-
+app.use("/api/pet", petRoutes);
 
 // Start the server
 app.listen(port, () => {
