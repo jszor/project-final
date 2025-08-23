@@ -8,3 +8,7 @@ node_modules
 .env
 .env.local
 .env.*.local
+
+# Misc
+
+todo.md
