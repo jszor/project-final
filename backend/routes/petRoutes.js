@@ -26,9 +26,9 @@ router.get("/", authenticateUser, getPet);
 // router.patch("/coins", authenticateUser, addCoins);
 
 // Inventory
-// router.get("/inventory", authenticateUser, getInventory);
-// router.patch("/inventory/add", authenticateUser, addItem);
-// router.patch("/inventory/remove", authenticateUser, removeItem);
+router.get("/inventory", authenticateUser, getInventory);
+router.patch("/inventory/add", authenticateUser, addItem);
+router.patch("/inventory/remove", authenticateUser, removeItem);
 
 // Leaderboard
 // router.get("/leaderboard", authenticateUser, getLeaderboard);
