@@ -4,45 +4,54 @@ export const applyPetDecay = (pet) => {
   if (!pet || pet.status === "expired") return pet;
 
   const now = new Date();
+  const MS_PER_HOUR = 1000 * 60 * 60;
 
   // Remove expired power-ups (lazy evaluation)
-  if (pet.activePowerups && pet.activePowerups.length > 0) {
+  if (pet.activePowerups?.length) {
     pet.activePowerups = pet.activePowerups.filter(
       (p) => p.expiresAt > now
     );
-  } 
+  }
 
-  // StatFreeze: skip decay and update time
+  // If statFreeze is active, reset all stat timers to now and skip decay
   const statFreeze = pet.activePowerups?.find(
     (p) => p.type === "statFreeze" && p.expiresAt > now
   );
 
   if (statFreeze) {
-    // While frozen, prevent any decay from accumulating
+    Object.keys(pet.statTimers).forEach((key) => {
+      pet.statTimers[key] = now;
+    });
+
     pet.lastUpdated = now;
+
     return pet;
   }
 
-  // calculate hours elapsed since last update
-  const hoursElapsed = Math.floor((now - pet.lastUpdated) / (1000 * 60 * 60));
-
-  if (hoursElapsed < 6) {
-    // Not enough time has passed to trigger any decay
-    return pet;
+  // Retrieve the last updated time for a stat
+  const getTimer = (key) => {
+    return pet.statTimers?.[key] ? new Date(pet.statTimers[key]) : now;
   }
 
-  // Figure out how many full decay cycles have passed
-  const hungerCycles = Math.floor(hoursElapsed / 12);
+  // Intervals in hours for each stat
+  const hungerInterval = 12;
+  const happinessInterval = pet.conditions.isPooped ? 6 : 12;
+  const healthInterval = pet.conditions.isSick ? 6 : 12;
 
-  const happinessCycles = pet.conditions.isPooped
-    ? Math.floor(hoursElapsed / 6)
-    : Math.floor(hoursElapsed / 12);
+  // Calculate cycles for each stat using its own timer
+  const hungerLastUpdated = getTimer("hungerLastUpdated");
+  const happinessLastUpdated = getTimer("happinessLastUpdated");
+  const healthLastUpdated = getTimer("healthLastUpdated");
 
-  const healthCycles = pet.conditions.isSick
-    ? Math.floor(hoursElapsed / 6)
-    : Math.floor(hoursElapsed / 12);
+  const hungerHours = Math.floor((now - hungerLastUpdated) / MS_PER_HOUR);
+  const happinessHours = Math.floor((now - happinessLastUpdated) / MS_PER_HOUR);
+  const healthHours = Math.floor((now - healthLastUpdated) / MS_PER_HOUR);
 
-  // If no cycles completed, do nothing (i.e. carry leftover hours forward)
+  const hungerCycles = Math.floor(hungerHours / hungerInterval);
+  const happinessCycles = Math.floor(happinessHours / happinessInterval);
+  const healthCycles = Math.floor(healthHours / healthInterval);
+
+  // Return if there are no stats to update
   if (hungerCycles === 0 && happinessCycles === 0 && healthCycles === 0) {
     return pet;
   }
@@ -52,16 +61,19 @@ export const applyPetDecay = (pet) => {
   pet.happiness = Math.max(0, pet.happiness - happinessCycles);
   pet.health = Math.max(0, pet.health - healthCycles);
 
-  // expire pet if any stat hits 0
+  // Update each stat timer by the amount consumed for that stat, leftover hours carried over to next check
+  pet.statTimers.hungerLastUpdated = new Date(hungerLastUpdated.getTime() + hungerCycles * hungerInterval * MS_PER_HOUR);
+  pet.statTimers.happinessLastUpdated = new Date(happinessLastUpdated.getTime() + happinessCycles * happinessInterval * MS_PER_HOUR);
+  pet.statTimers.healthLastUpdated = new Date(healthLastUpdated.getTime() + healthCycles * healthInterval * MS_PER_HOUR);
+
+  // Expire pet if any stat hits 0
   if (pet.health === 0 || pet.hunger === 0 || pet.happiness === 0) {
     pet.status = "expired";
     pet.expiredAt = now;
   }
 
-  // update lastUpdated to the most recent decay boundary (i.e. carry over leftover hours)
-  const cyclesElapsed = Math.floor(hoursElapsed / 6);
-  const newLastUpdated = new Date(pet.lastUpdated.getTime() + cyclesElapsed * 6 * 60 * 60 * 1000);
-  pet.lastUpdated = newLastUpdated;
+  // Update lastUpdated (leave in for now)
+  pet.lastUpdated = now;
 
   return pet;
 
