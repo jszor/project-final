@@ -6,16 +6,42 @@ export const applyPetDecay = (pet) => {
   const now = new Date();
   const MS_PER_HOUR = 1000 * 60 * 60;
 
+  // Poop logic
+  const POOP_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+  const MIN_TIME_AFTER_LAST_POOP = 8 * 60 * 60 * 1000; // 8 hours
+
+  if (!pet.conditions.isPooped && pet.conditions.nextPoopTime <= now) {
+    pet.conditions.isPooped = true;
+  
+    // Schedule next poop
+    pet.conditions.nextPoopTime = new Date(
+      now.getTime() + MIN_TIME_AFTER_LAST_POOP + Math.random() * (POOP_INTERVAL - MIN_TIME_AFTER_LAST_POOP)
+    );
+  }
+
+  // Sickness logic
+  const SICKNESS_INTERVAL = 14 * 24 * 60 * 60 * 1000; // 14 days
+  const MIN_TIME_AFTER_LAST_SICKNESS = 2 * 24 * 60 * 60 * 1000; // 2 days
+
+  if (!pet.conditions.isSick && pet.conditions.nextSicknessTime <= now) {
+    pet.conditions.isSick = true;
+  
+    // Schedule next sickness
+    pet.conditions.nextSicknessTime = new Date(
+      now.getTime() + MIN_TIME_AFTER_LAST_SICKNESS + Math.random() * (SICKNESS_INTERVAL - MIN_TIME_AFTER_LAST_SICKNESS)
+    );
+  }
+
   // Remove expired power-ups (lazy evaluation)
   if (pet.activePowerups?.length) {
     pet.activePowerups = pet.activePowerups.filter(
-      (p) => p.expiresAt > now
+      (p) => new Date(p.expiresAt).getTime() > now
     );
   }
 
   // If statFreeze is active, reset all stat timers to now and skip decay
   const statFreeze = pet.activePowerups?.find(
-    (p) => p.type === "statFreeze" && p.expiresAt > now
+    (p) => p.type === "statFreeze" && new Date(p.expiresAt).getTime() > now
   );
 
   if (statFreeze) {
