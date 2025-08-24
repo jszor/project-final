@@ -176,27 +176,78 @@ export const useItem = async (req, res) => {
     }
 
     // Find item in inventory
-    const inventoryItem = pet.inventory.find((item) => item.itemName === itemName && item.quantity > 0);
+    const inventoryItem = pet.inventory.find(
+      (item) => item.itemName === itemName && item.quantity > 0
+    );
     if (!inventoryItem) {
       return res.status(404).json({ message: "Item not found in inventory" });
     }
 
-    // get item details from Item collection
+    // Fetch item details from Item collection in DB
     const storeItem = await Item.findOne({ name: itemName });
     if (!storeItem) {
       return res.status(404).json({ message: "Item definition not found" });
     }
 
-    // apply effect
-    const stat = storeItem.stat;
-    const effect = storeItem.effect;
+     // Apply all stat effects
+     let effectApplied = false;
 
-    pet[stat] = Math.min(5, pet[stat] + effect); // cap at 5 bars
+     storeItem.effects?.forEach(({ stat, amount }) => {
+      if (["hunger", "happiness", "health"].includes(stat)) {
+        const before = pet[stat];
+        pet[stat] = Math.min(5, Math.max(0, pet[stat] + amount)); // cap 0-5
+        if (pet[stat] !== before) effectApplied = true;
+      } else if (["coins", "xp"].includes(stat)) {
+        const before = pet[stat];
+        pet[stat] = Math.max(0, pet[stat] + amount); // no cap, but no negative values
+        if (pet[stat] !== before) effectApplied = true;
+      }
+    });
 
-    // decrease quantity in inventory
-    inventoryItem.quantity -= 1;
-    if (inventoryItem.quantity <= 0) {
-      pet.inventory = pet.inventory.filter((i) => i.itemName !== itemName);
+    // Apply all condition effects
+    let conditionApplied = false;
+
+    storeItem.conditions?.forEach(({ condition, setTo }) => {
+      if (pet.conditions && condition in pet.conditions) {
+        const before = pet.conditions[condition];
+        pet.conditions[condition] = setTo;
+        if (before !== setTo) conditionApplied = true;
+      }
+    });
+
+    // Apply power-up
+    let powerupApplied = false;
+
+    if (storeItem.powerup?.type && storeItem.powerup?.duration) {
+
+      // check if powerup is already active
+      const alreadyActive = pet.activePowerups.find(
+        (p) => 
+          p.type === storeItem.powerup.type && 
+          new Date(p.expiresAt).getTime() > Date.now()
+      );
+
+      if (!alreadyActive) {
+        pet.activePowerups.push({
+          type: storeItem.powerup.type,
+          expiresAt: new Date(Date.now() + storeItem.powerup.duration),
+        });
+        powerupApplied = true;
+      } else {
+        return res.status(400).json(
+          { message: `${storeItem.powerup.type} is already active.` }
+        );
+      }
+    }
+
+    // Only decrement inventory if something happened
+    if (effectApplied || conditionApplied || powerupApplied) {
+      inventoryItem.quantity -= 1;
+      if (inventoryItem.quantity <= 0) {
+        pet.inventory = pet.inventory.filter((i) => i.itemName !== itemName);
+      }
+    } else {
+      return res.status(400).json({ message: `${itemName} had no effect.` });
     }
 
     await pet.save();
