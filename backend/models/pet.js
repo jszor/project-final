@@ -64,12 +64,30 @@ const petSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    statTimers: {
+      hungerLastUpdated: { type: Date, default: Date.now },
+      happinessLastUpdated: { type: Date, default: Date.now },
+      healthLastUpdated: { type: Date, default: Date.now },
+    },
     conditions: {
       isPooped: { type: Boolean, default: false },
       isSick: { type: Boolean, default: false },
       poopTime: { type: Date },
       sicknessTime: { type: Date },
     },
+    activePowerups: [
+      {
+        type: {
+          type: String,
+          enum: ["statFreeze", "doubleCoins", "doubleXP"], // expand later potentially
+          required: true,
+        },
+        expiresAt: {
+          type: Date,
+          required: true,
+        },
+      }
+    ],
     status: {
       type: String,
       enum: ["alive", "expired"],
