@@ -32,6 +32,8 @@ const petSchema = new mongoose.Schema(
     coins: {
       type: Number,
       default: 0,
+      min: 0,
+      max: 998,
     },
     experience: {
       current: {
@@ -72,8 +74,6 @@ const petSchema = new mongoose.Schema(
     conditions: {
       isPooped: { type: Boolean, default: false },
       isSick: { type: Boolean, default: false },
-      poopTime: { type: Date },
-      sicknessTime: { type: Date },
     },
     activePowerups: [
       {
