@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
 import petRoutes from "./routes/petRoutes.js";
+import "./jobs/petCron.js";  
 
 dotenv.config();
 connectDB();
