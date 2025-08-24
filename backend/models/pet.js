@@ -74,6 +74,8 @@ const petSchema = new mongoose.Schema(
     conditions: {
       isPooped: { type: Boolean, default: false },
       isSick: { type: Boolean, default: false },
+      nextPoopTime: { type: Date, default: () => new Date(Date.now() + Math.random() * 24 * 60 * 60 * 1000) },
+      nextSicknessTime: { type: Date, default: () => new Date(Date.now() + Math.random() * 14 * 24 * 60 * 60 * 1000) },
     },
     activePowerups: [
       {
