@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
+// Endpoint for creating a pet.
 // Endpoint for fetching pet.
 // Endpoint for fetching pet inventory.
 // Endpoint for adding item to inventory.

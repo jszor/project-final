@@ -10,10 +10,15 @@ export const applyPetDecay = (pet) => {
   const POOP_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
   const MIN_TIME_AFTER_LAST_POOP = 8 * 60 * 60 * 1000; // 8 hours
 
-  if (!pet.conditions.isPooped && pet.conditions.nextPoopTime <= now) {
-    pet.conditions.isPooped = true;
-  
-    // Schedule next poop
+  // Always reschedule next poop if the scheduled time has passed
+  if (pet.conditions.nextPoopTime <= now) {
+
+    // Only mark as pooped if not already
+    if (!pet.conditions.isPooped) {
+      pet.conditions.isPooped = true;
+    }
+
+    // Schedule the next poop from now
     pet.conditions.nextPoopTime = new Date(
       now.getTime() + MIN_TIME_AFTER_LAST_POOP + Math.random() * (POOP_INTERVAL - MIN_TIME_AFTER_LAST_POOP)
     );
@@ -23,12 +28,19 @@ export const applyPetDecay = (pet) => {
   const SICKNESS_INTERVAL = 14 * 24 * 60 * 60 * 1000; // 14 days
   const MIN_TIME_AFTER_LAST_SICKNESS = 2 * 24 * 60 * 60 * 1000; // 2 days
 
-  if (!pet.conditions.isSick && pet.conditions.nextSicknessTime <= now) {
-    pet.conditions.isSick = true;
-  
-    // Schedule next sickness
+  // Always reschedule next sickness if the scheduled time has passed
+  if (pet.conditions.nextSicknessTime <= now) {
+
+    // Only mark as sick if not already
+    if (!pet.conditions.isSick) {
+      pet.conditions.isSick = true;
+    }
+
+    // Schedule the next sickness from now
     pet.conditions.nextSicknessTime = new Date(
-      now.getTime() + MIN_TIME_AFTER_LAST_SICKNESS + Math.random() * (SICKNESS_INTERVAL - MIN_TIME_AFTER_LAST_SICKNESS)
+      now.getTime() +
+      MIN_TIME_AFTER_LAST_SICKNESS +
+      Math.random() * (SICKNESS_INTERVAL - MIN_TIME_AFTER_LAST_SICKNESS)
     );
   }
 
