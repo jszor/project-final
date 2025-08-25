@@ -1,7 +1,7 @@
 // seeds/seedItems.js
 import dotenv from "dotenv";
 import connectDB from "../config/db.js";
-import Item from "../models/item.js";
+import { Item } from "../models/item.js";
 
 dotenv.config();
 
