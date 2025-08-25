@@ -19,7 +19,7 @@ router.post("/", authenticateUser, createPet);
 router.get("/", authenticateUser, getPet);
 
 // Gameplay
-// router.patch("/use-item", authenticateUser, useItem);
+router.patch("/use-item", authenticateUser, useItem);
 
 // Progression
 // router.patch("/xp", authenticateUser, addXP);
