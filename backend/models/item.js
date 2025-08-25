@@ -45,7 +45,7 @@ const itemSchema = new mongoose.Schema({
       enum: ["statFreeze", "doubleCoins", "doubleXP"], // add more later if need be
     },
     duration: Number, // in ms, e.g. 30 * 60 * 1000 (that equals 30 mins)
-    default: []
+    default: {}
   },
   price: {
     type: Number,
