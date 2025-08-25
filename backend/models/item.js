@@ -11,18 +11,45 @@ const itemSchema = new mongoose.Schema({
     enum: ["food", "toy", "medicine", "powerup", "misc"],
     required: true,
   },
-  stat: {
-    type: String,
-    enum: ["hunger", "happiness", "health", "coins", "xp", null],
-    required: false, // not all items will necessarily affect stats
+  effects: {
+    type: [
+      {
+        stat: {
+          type: String,
+          enum: ["hunger", "happiness", "health", "coins", "xp"],
+        },
+        amount: Number,
+      },
+    ],
+    default: [],
   },
-  effect: {
-    type: Number,
-    default: 1, // how much it changes the stat
+  conditions: {
+    type: [
+      {
+        condition: {
+          type: String,
+          enum: ["isSick", "isPooped"], // add more conditions later if need be
+          required: true,
+        },
+        setTo: {
+          type: Boolean,
+          required: true,
+        },
+      },
+    ],
+    default: [],
+  },
+  powerup: {
+    type: {
+      type: String,
+      enum: ["statFreeze", "doubleCoins", "doubleXP"], // add more later if need be
+    },
+    duration: Number, // in ms, e.g. 30 * 60 * 1000 (that equals 30 mins)
+    default: null // items that aren't powerups don't need a powerup field
   },
   price: {
     type: Number,
-    default: 0, // store cost (in coins)
+    default: 0, // price in coins
   },
   description: {
     type: String,

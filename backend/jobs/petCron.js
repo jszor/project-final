@@ -18,7 +18,7 @@ cron.schedule("0 * * * *", async () => {
   try {
     const pets = await Pet.find({ status: "alive" });
 
-    for (let pet of pets) {
+    for (let pet of pets) { // potentially batch updates for performance in the future if need be (e.g. do 50 pets per batch) 
       const updatedPet = applyPetDecay(pet);
       await updatedPet.save();
     }
