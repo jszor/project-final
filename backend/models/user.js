@@ -8,12 +8,14 @@ const userSchema = new mongoose.Schema(
       minlength: 2,
       maxlength: 6,
       trim: true,
+      set: (value) => value.toUpperCase(),
     },
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
       lowercase: true,
+      trim: true,
       match: [
         /^[a-zA-Z0-9._%+-]+@osloskolen\.no$/,
         "Email must end with @osloskolen.no",
@@ -27,6 +29,8 @@ const userSchema = new mongoose.Schema(
     classroomCode: {
       type: String,
       required: [true, "Classroom code is required"],
+      trim: true,
+      set: (value) => value.toUpperCase(),
       match: [
         /^[A-Z]{3}-\d{4}$/,
         "Classroom code must be in format XXX-0000",
