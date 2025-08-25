@@ -83,7 +83,7 @@ const items = [
     conditions: [
       { condition: "isSick", setTo: false }
     ],
-    price: 30,
+    price: 40,
     description: "A medicinal powder that cures disease. Hallelujah! "
   },
   {
