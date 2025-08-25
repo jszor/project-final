@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
 import petRoutes from "./routes/petRoutes.js";
+import storeRoutes from "./routes/storeRoutes.js";
 import "./jobs/petCron.js";  
 
 dotenv.config();
@@ -43,6 +44,12 @@ app.use("/api/auth", authRoutes);
 // Endpoint for calculating position on leaderboard.
 
 app.use("/api/pet", petRoutes);
+
+// Endpoint for getting all store items
+// Endpoint for getting single store item by id
+// Endpoint for buying item from store
+
+app.use("/api/store", storeRoutes);
 
 // Start the server
 app.listen(port, () => {

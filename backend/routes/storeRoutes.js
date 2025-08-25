@@ -5,8 +5,8 @@ import { getStoreItems, getStoreItemById, buyItem } from "../controllers/storeCo
 const router = express.Router();
 
 // Store
-router.get("/store", authenticateUser, getStoreItems);
-router.get("/store/:id", authenticateUser, getStoreItemById);
-router.post("/store/buy", authenticateUser, buyItem);
+router.get("/", authenticateUser, getStoreItems);
+router.get("/:id", authenticateUser, getStoreItemById);
+router.post("/buy", authenticateUser, buyItem);
 
 export default router;
