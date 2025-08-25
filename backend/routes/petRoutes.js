@@ -30,11 +30,6 @@ router.get("/inventory", authenticateUser, getInventory);
 router.patch("/inventory/add", authenticateUser, addItem);
 router.patch("/inventory/remove", authenticateUser, removeItem);
 
-// Store
-router.get("/store", authenticateUser, getStoreItems);
-router.get("/store/:id", authenticateUser, getStoreItemById);
-router.post("/store/buy", authenticateUser, buyItem);
-
 // Leaderboard
 router.get("/leaderboard", authenticateUser, getLeaderboard);
 
