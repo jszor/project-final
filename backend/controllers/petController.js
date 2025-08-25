@@ -1,5 +1,6 @@
 import { Pet } from "../models/pet.js";
 import { Item } from "../models/item.js"
+import { User } from "../models/user.js"
 import { applyPetDecay } from "../utils/petUtils.js";
 
 // ================= PET =====================
@@ -152,7 +153,7 @@ export const removeItem = async (req, res) => {
   }
 };
 
-// ================ PET USE ITEM(S) ====================
+// ================ GAMPEPLAY ====================
 
 // PATCH /api/pet/use-item
 export const useItem = async (req, res) => {
@@ -258,5 +259,127 @@ export const useItem = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Failed to use item", error });
+  }
+};
+
+// ================ PROGRESSION ======================
+
+// PATCH /api/pet/xp
+export const addXP = async (req, res) => {
+  try {
+    const { amount } = req.body;
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({ message: "XP amount must be a positive integer" });
+    }
+
+    let pet = await Pet.findOne({ owner: req.user._id });
+    if (!pet) return res.status(404).json({ message: "Pet not found" });
+
+    // Apply decay first
+    pet = applyPetDecay(pet);
+
+    if (pet.status === "expired") {
+      return res.status(400).json({ message: "Cannot add XP to an expired pet" });
+    }
+
+    // Check for doubleXP powerup
+    const hasDoubleXP = pet.activePowerups.some(
+      (p) => p.type === "doubleXP" && new Date(p.expiresAt).getTime() > Date.now() 
+    );
+    const finalAmount = hasDoubleXP ? amount * 2 : amount;
+
+    // Add XP and handle level up
+    pet.experience.current += finalAmount;
+
+    while (pet.experience.current >= pet.experience.required) {
+      pet.experience.current -= pet.experience.required;
+      pet.level += 1;
+      pet.experience.required = Math.floor(pet.experience.required * 1.25); // scale difficulty
+    }
+
+    await pet.save();
+
+    res.json({
+      message: `Added ${finalAmount} XP`,
+      pet,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add XP", error });
+  }
+};
+
+// PATCH /api/pet/coins
+export const addCoins = async (req, res) => {
+  try {
+    const { amount } = req.body;
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({ message: "Coin amount must be a positive integer" });
+    }
+
+    let pet = await Pet.findOne({ owner: req.user._id });
+    if (!pet) return res.status(404).json({ message: "Pet not found" });
+
+    // Apply decay first
+    pet = applyPetDecay(pet);
+
+    if (pet.status === "expired") {
+      return res.status(400).json({ message: "Cannot add coins to an expired pet" });
+    }
+
+    // Check for doubleCoins powerup
+    const hasDoubleCoins = pet.activePowerups.some(
+      (p) => p.type === "doubleCoins" && new Date(p.expiresAt).getTime() > Date.now()
+    );
+    const finalAmount = hasDoubleCoins ? amount * 2 : amount;
+
+    pet.coins = Math.min(998, pet.coins + finalAmount);
+
+    await pet.save();
+
+    res.json({
+      message: `Added ${finalAmount} coins`,
+      pet,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add coins", error });
+  }
+};
+
+// ==================== LEADERBOARD =======================
+
+// GET /api/pet/leaderboard
+export const getLeaderboard = async (req, res) => {
+  try {
+    // Fetch the current user
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Get all user IDs in the same class
+    const classUserIds = await User.find({ classroomCode: user.classroomCode }).distinct("_id");
+
+    // Fetch pets only from those users
+    let pets = await Pet.find({ status: "alive", owner: { $in: classUserIds } })
+      .populate({
+        path: "owner",
+        select: "initials classroomCode",
+      })
+      .sort({ level: -1, "experience.current": -1, coins: -1 }) // ranking order priority: first by lvl, then xp, then coins
+      .limit(20);
+
+    // Add rank to each pet
+    pets = pets.map((pet, index) => ({
+      rank: index + 1,
+      ...pet.toObject(),
+    }));
+
+    res.json({
+      message: "Leaderboard retrieved",
+      classroomCode: user.classroomCode,
+      leaderboard: pets,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch leaderboard", error });
   }
 };
