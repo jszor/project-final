@@ -1,6 +1,7 @@
 {
   "name": "project-final-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Server part of final project",
   "scripts": {
     "start": "NODE_ENV=production babel-node server.js",
