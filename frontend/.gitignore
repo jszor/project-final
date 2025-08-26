@@ -8,6 +8,9 @@ build/
 # Logs
 *.log
 
+# Misc
+todo.md
+
 # Environment variables
 .env
 .env.local

@@ -8,11 +8,40 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TosRouteImport } from './routes/tos'
+import { Route as PrivpolicyRouteImport } from './routes/privpolicy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppStoreRouteImport } from './routes/app/store'
+import { Route as AppStatsRouteImport } from './routes/app/stats'
+import { Route as AppSettingsRouteImport } from './routes/app/settings'
+import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
+import { Route as AppInventoryRouteImport } from './routes/app/inventory'
+import { Route as AppExercisesRouteImport } from './routes/app/exercises'
+import { Route as App_layoutRouteImport } from './routes/app/__layout'
 
+const AppRouteImport = createFileRoute('/app')()
+
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TosRoute = TosRouteImport.update({
+  id: '/tos',
+  path: '/tos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivpolicyRoute = PrivpolicyRouteImport.update({
+  id: '/privpolicy',
+  path: '/privpolicy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -28,39 +57,172 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStoreRoute = AppStoreRouteImport.update({
+  id: '/store',
+  path: '/store',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStatsRoute = AppStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInventoryRoute = AppInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExercisesRoute = AppExercisesRouteImport.update({
+  id: '/exercises',
+  path: '/exercises',
+  getParentRoute: () => AppRoute,
+} as any)
+const App_layoutRoute = App_layoutRouteImport.update({
+  id: '/__layout',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/privpolicy': typeof PrivpolicyRoute
+  '/tos': typeof TosRoute
+  '/app': typeof App_layoutRoute
+  '/app/exercises': typeof AppExercisesRoute
+  '/app/inventory': typeof AppInventoryRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/stats': typeof AppStatsRoute
+  '/app/store': typeof AppStoreRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/privpolicy': typeof PrivpolicyRoute
+  '/tos': typeof TosRoute
+  '/app': typeof AppIndexRoute
+  '/app/exercises': typeof AppExercisesRoute
+  '/app/inventory': typeof AppInventoryRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/stats': typeof AppStatsRoute
+  '/app/store': typeof AppStoreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/privpolicy': typeof PrivpolicyRoute
+  '/tos': typeof TosRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/__layout': typeof App_layoutRoute
+  '/app/exercises': typeof AppExercisesRoute
+  '/app/inventory': typeof AppInventoryRoute
+  '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/stats': typeof AppStatsRoute
+  '/app/store': typeof AppStoreRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/privpolicy'
+    | '/tos'
+    | '/app'
+    | '/app/exercises'
+    | '/app/inventory'
+    | '/app/leaderboard'
+    | '/app/settings'
+    | '/app/stats'
+    | '/app/store'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login'
-  id: '__root__' | '/' | '/about' | '/login'
+  to:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/privpolicy'
+    | '/tos'
+    | '/app'
+    | '/app/exercises'
+    | '/app/inventory'
+    | '/app/leaderboard'
+    | '/app/settings'
+    | '/app/stats'
+    | '/app/store'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/login'
+    | '/privpolicy'
+    | '/tos'
+    | '/app'
+    | '/app/__layout'
+    | '/app/exercises'
+    | '/app/inventory'
+    | '/app/leaderboard'
+    | '/app/settings'
+    | '/app/stats'
+    | '/app/store'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
+  PrivpolicyRoute: typeof PrivpolicyRoute
+  TosRoute: typeof TosRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tos': {
+      id: '/tos'
+      path: '/tos'
+      fullPath: '/tos'
+      preLoaderRoute: typeof TosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privpolicy': {
+      id: '/privpolicy'
+      path: '/privpolicy'
+      fullPath: '/privpolicy'
+      preLoaderRoute: typeof PrivpolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -82,13 +244,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/store': {
+      id: '/app/store'
+      path: '/store'
+      fullPath: '/app/store'
+      preLoaderRoute: typeof AppStoreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/stats': {
+      id: '/app/stats'
+      path: '/stats'
+      fullPath: '/app/stats'
+      preLoaderRoute: typeof AppStatsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/leaderboard': {
+      id: '/app/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/app/leaderboard'
+      preLoaderRoute: typeof AppLeaderboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/inventory': {
+      id: '/app/inventory'
+      path: '/inventory'
+      fullPath: '/app/inventory'
+      preLoaderRoute: typeof AppInventoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/exercises': {
+      id: '/app/exercises'
+      path: '/exercises'
+      fullPath: '/app/exercises'
+      preLoaderRoute: typeof AppExercisesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/__layout': {
+      id: '/app/__layout'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof App_layoutRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
+
+interface AppRouteChildren {
+  App_layoutRoute: typeof App_layoutRoute
+  AppExercisesRoute: typeof AppExercisesRoute
+  AppInventoryRoute: typeof AppInventoryRoute
+  AppLeaderboardRoute: typeof AppLeaderboardRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppStatsRoute: typeof AppStatsRoute
+  AppStoreRoute: typeof AppStoreRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  App_layoutRoute: App_layoutRoute,
+  AppExercisesRoute: AppExercisesRoute,
+  AppInventoryRoute: AppInventoryRoute,
+  AppLeaderboardRoute: AppLeaderboardRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppStatsRoute: AppStatsRoute,
+  AppStoreRoute: AppStoreRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
+  PrivpolicyRoute: PrivpolicyRoute,
+  TosRoute: TosRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
