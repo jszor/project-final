@@ -2,6 +2,7 @@ import { Pet } from "../models/pet.js";
 import { Item } from "../models/item.js"
 import { User } from "../models/user.js"
 import { applyPetDecay } from "../utils/petUtils.js";
+import { awardXP, awardCoins } from "../services/petService.js";
 
 // ================= PET =====================
 
@@ -272,38 +273,19 @@ export const addXP = async (req, res) => {
       return res.status(400).json({ message: "XP amount must be a positive integer" });
     }
 
-    let pet = await Pet.findOne({ owner: req.user._id });
-    if (!pet) return res.status(404).json({ message: "Pet not found" });
-
-    // Apply decay first
-    pet = applyPetDecay(pet);
-
-    if (pet.status === "expired") {
-      return res.status(400).json({ message: "Cannot add XP to an expired pet" });
-    }
-
-    // Check for doubleXP powerup
-    const hasDoubleXP = pet.activePowerups.some(
-      (p) => p.type === "doubleXP" && new Date(p.expiresAt).getTime() > Date.now() 
-    );
-    const finalAmount = hasDoubleXP ? amount * 2 : amount;
-
-    // Add XP and handle level up
-    pet.experience.current += finalAmount;
-
-    while (pet.experience.current >= pet.experience.required) {
-      pet.experience.current -= pet.experience.required;
-      pet.level += 1;
-      pet.experience.required = Math.floor(pet.experience.required * 1.25); // scale difficulty
-    }
-
-    await pet.save();
+    const result = await awardXP(req.user._id, amount);
 
     res.json({
-      message: `Added ${finalAmount} XP`,
-      pet,
+      message: `Added ${result.finalAmount} XP`,
+      pet: result.pet,
     });
   } catch (error) {
+    if (error.message === "Pet not found") {
+      return res.status(404).json({ message: error.message });
+    }
+    if (error.message.includes("expired")) {
+      return res.status(400).json({ message: error.message });
+    }
     res.status(500).json({ message: "Failed to add XP", error });
   }
 };
@@ -316,31 +298,19 @@ export const addCoins = async (req, res) => {
       return res.status(400).json({ message: "Coin amount must be a positive integer" });
     }
 
-    let pet = await Pet.findOne({ owner: req.user._id });
-    if (!pet) return res.status(404).json({ message: "Pet not found" });
-
-    // Apply decay first
-    pet = applyPetDecay(pet);
-
-    if (pet.status === "expired") {
-      return res.status(400).json({ message: "Cannot add coins to an expired pet" });
-    }
-
-    // Check for doubleCoins powerup
-    const hasDoubleCoins = pet.activePowerups.some(
-      (p) => p.type === "doubleCoins" && new Date(p.expiresAt).getTime() > Date.now()
-    );
-    const finalAmount = hasDoubleCoins ? amount * 2 : amount;
-
-    pet.coins = Math.min(998, pet.coins + finalAmount);
-
-    await pet.save();
+    const result = await awardCoins(req.user._id, amount);
 
     res.json({
-      message: `Added ${finalAmount} coins`,
-      pet,
+      message: `Added ${result.finalAmount} coins`,
+      pet: result.pet,
     });
   } catch (error) {
+    if (error.message === "Pet not found") {
+      return res.status(404).json({ message: error.message });
+    }
+    if (error.message.includes("expired")) {
+      return res.status(400).json({ message: error.message });
+    }
     res.status(500).json({ message: "Failed to add coins", error });
   }
 };
