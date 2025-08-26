@@ -18,7 +18,7 @@ const exercises = [
       { questionText: "Io ___ (parlare) italiano ogni giorno.", options: ["parlo", "parla", "parliamo", "parlate"], correctAnswer: "a" },
       { questionText: "Tu ___ (mangiare) la pizza stasera?", options: ["mangia", "mangio", "mangi", "mangiamo"], correctAnswer: "c" },
       { questionText: "Lui ___ (cantare) una canzone.", options: ["canto", "canta", "cantiamo", "cantate"], correctAnswer: "b" },
-      { questionText: "Noi ___ (giocare) a calcio ogni sabato.", options: ["giocano", "giochiamo", "giocate", "giochiamo"], correctAnswer: "b" },
+      { questionText: "Noi ___ (giocare) a calcio ogni sabato.", options: ["giocano", "giochiamo", "giocate", "giochi"], correctAnswer: "b" },
       { questionText: "Voi ___ (studiare) per l'esame domani.", options: ["studiate", "studiamo", "studiano", "studio"], correctAnswer: "a" },
     ],
   },
