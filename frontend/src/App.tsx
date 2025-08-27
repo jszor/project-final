@@ -1,6 +1,15 @@
 import { Outlet } from '@tanstack/react-router'
+import { useEffect } from "react";
+import { useAuthStore } from "./store/auth";
+
 
 const App = () => {
+
+  const rehydrate = useAuthStore((state) => state.rehydrate);
+
+  useEffect(() => {
+    rehydrate();
+  }, [rehydrate]);
 
   return (
     <div className="p-4">

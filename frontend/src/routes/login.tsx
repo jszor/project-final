@@ -1,16 +1,32 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useAuthStore } from "../store/auth"
 
 export const Login = () => {
 
+  const navigate = useNavigate();
+  const login = useAuthStore((s) => s.login);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Logging in with:", { email, password });
-    // TODO: hook this up to auth store (Zustand)
-  }
+    setError(null);
+    setLoading(true);
+
+    try {
+      await login(email, password);
+      navigate({ to: "/app" });
+    } catch (err) {
+      setError("Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex min-h-[500px] items-center justify-center bg-ammo-800">
@@ -54,16 +70,27 @@ export const Login = () => {
             />
           </div>
 
+          {error && (
+            <p className="text-ammo-100 text-sm font-pstp">Error: {error}</p>
+          )}
+
           {/* Submit button */}
           <div className="flex justify-center">
             <button
               type="submit"
-              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-8 py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline"
+              disabled={loading}
+              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-8 py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline disabled:opacity-50"
             >
               Log In
             </button>
           </div>
         </form>
+        <p className="mt-[2rem] text-center text-[0.75rem] font-pstp text-ammo-100">
+          Don’t have an account?<br />
+          <a href="/" className="text-ammo-100 hover:underline">
+            Sign up here!
+          </a>
+        </p>
       </div>
     </div>
   )
