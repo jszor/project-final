@@ -18,3 +18,30 @@
 
   --font-pstp: "Press Start 2P", "sans-serif";
 }
+
+@layer base {
+  html {
+    font-family: var(--font-pstp);
+  }
+
+  body {
+    background-color: var(--color-ammo-800);
+    color: var(--color-customs-100); /* default text color */
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Custom selection highlight, still to be tweaked */
+  ::selection {
+    background: var(--color-ammo-400);
+    color: var(--color-ammo-800);
+  }
+}
