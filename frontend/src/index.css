@@ -1,1 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+  --color-ammo-100: #eeffcc;
+  --color-ammo-200: #bedc7f;
+  --color-ammo-300: #89a257;
+  --color-ammo-400: #4d8061;
+  --color-ammo-500: #305d42;
+  --color-ammo-600: #1e3a29;
+  --color-ammo-700: #112318;
+  --color-ammo-800: #040c06;
+
+  --color-customs-100: #ffffff;
+  --color-customs-200: #414f43;
+  --color-customs-300: #597e64; /* sleep background color*/
+
+  --font-pstp: "Press Start 2P", "sans-serif";
+}
