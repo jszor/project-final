@@ -3,7 +3,7 @@ import logoSprite from "../../assets/landing/logo-sprite.png"
 
 export const Footer = () => {
   return (
-    <div className="flex items-center justify-between px-[4.5rem] py-[3rem] text-ammo-100 text-xs">
+    <div className="flex items-center justify-between px-[4.5rem] pb-[2rem] pt-[1.5rem] text-ammo-100 text-xs">
       <Link to="/" className="underline pt-[6px]">
         Home
       </Link>
