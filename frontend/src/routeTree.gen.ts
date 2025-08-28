@@ -15,10 +15,10 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppStoreRouteImport } from './routes/app/store'
 import { Route as AppStatsRouteImport } from './routes/app/stats'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
+import { Route as AppMenuRouteImport } from './routes/app/menu'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppInventoryRouteImport } from './routes/app/inventory'
 import { Route as AppExercisesRouteImport } from './routes/app/exercises'
@@ -53,11 +53,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppStoreRoute = AppStoreRouteImport.update({
   id: '/store',
   path: '/store',
@@ -71,6 +66,11 @@ const AppStatsRoute = AppStatsRouteImport.update({
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMenuRoute = AppMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
   getParentRoute: () => AppRoute,
 } as any)
 const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
@@ -99,24 +99,25 @@ export interface FileRoutesByFullPath {
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRoute
-  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRoute
-  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -129,10 +130,10 @@ export interface FileRoutesById {
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
+  '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRoute
-  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -146,24 +147,25 @@ export interface FileRouteTypes {
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
+    | '/app/menu'
     | '/app/settings'
     | '/app/stats'
     | '/app/store'
-    | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/app'
     | '/login'
     | '/privpolicy'
     | '/tos'
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
+    | '/app/menu'
     | '/app/settings'
     | '/app/stats'
     | '/app/store'
-    | '/app'
   id:
     | '__root__'
     | '/'
@@ -175,10 +177,10 @@ export interface FileRouteTypes {
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
+    | '/app/menu'
     | '/app/settings'
     | '/app/stats'
     | '/app/store'
-    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -234,13 +236,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
-      path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/app/store': {
       id: '/app/store'
       path: '/store'
@@ -260,6 +255,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/menu': {
+      id: '/app/menu'
+      path: '/menu'
+      fullPath: '/app/menu'
+      preLoaderRoute: typeof AppMenuRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/leaderboard': {
@@ -290,20 +292,20 @@ interface AppRouteChildren {
   AppExercisesRoute: typeof AppExercisesRoute
   AppInventoryRoute: typeof AppInventoryRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
+  AppMenuRoute: typeof AppMenuRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppStatsRoute: typeof AppStatsRoute
   AppStoreRoute: typeof AppStoreRoute
-  AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppExercisesRoute: AppExercisesRoute,
   AppInventoryRoute: AppInventoryRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
+  AppMenuRoute: AppMenuRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppStatsRoute: AppStatsRoute,
   AppStoreRoute: AppStoreRoute,
-  AppIndexRoute: AppIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

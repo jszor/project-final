@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { redirect } from "@tanstack/react-router";
 
 // Defines the shape of the user returned by the backend
 interface User {
@@ -72,8 +71,6 @@ export const useAuthStore = create<AuthState>((set) => ({
       isAuthenticated: false,
     });
 
-    redirect({ to: "/" });
-  
   },
   // Users stay logged in when refreshing the page, and until logout is clicked
   rehydrate: () => {

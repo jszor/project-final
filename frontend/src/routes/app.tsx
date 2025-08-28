@@ -4,12 +4,16 @@ import { AppHeader } from '../components/app/AppHeader'
 import { LeftPanel } from '../components/app/LeftPanel'
 
 export const Route = createFileRoute('/app')({
-  beforeLoad: () => {
+  beforeLoad: ({ location }) => {
     const state = useAuthStore.getState()
     console.log('beforeLoad auth state:', state)
 
     if (!state.token) {
       throw redirect({ to: '/login' })
+    }
+
+    if (location.pathname === '/app' || location.pathname === '/app/') {
+      throw redirect({ to: '/app/menu' })
     }
   },
   component: RouteComponent,
