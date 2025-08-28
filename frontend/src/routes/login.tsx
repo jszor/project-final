@@ -71,7 +71,7 @@ export const Login = () => {
           </div>
 
           {error && (
-            <p className="text-ammo-100 text-sm font-pstp">Error: {error}</p>
+            <p className="text-ammo-100 mt-[1.75rem] text-[11px] font-pstp">Error: {error}</p>
           )}
 
           {/* Submit button */}
