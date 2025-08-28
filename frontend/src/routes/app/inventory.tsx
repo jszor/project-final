@@ -6,7 +6,7 @@ export const Route = createFileRoute('/app/inventory')({
 
 function Inventory() {
   return (
-    <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1.5rem] gap-[5.5rem]">
+    <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1.5rem] gap-[3rem]">
       <h2 className="text-[1.5rem]">
         INVENTORY:
       </h2>
