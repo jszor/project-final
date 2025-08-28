@@ -25,7 +25,7 @@ function Inventory() {
         </>
       )}
       <Outlet />
-      <Link to="/app/inventory">⏎</Link>
+      <Link to="/app/menu">⏎</Link>
     </div>
   )
 }
