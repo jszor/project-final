@@ -8,12 +8,11 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TosRouteImport } from './routes/tos'
 import { Route as PrivpolicyRouteImport } from './routes/privpolicy'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
@@ -25,13 +24,6 @@ import { Route as AppInventoryRouteImport } from './routes/app/inventory'
 import { Route as AppExercisesRouteImport } from './routes/app/exercises'
 import { Route as App_layoutRouteImport } from './routes/app/__layout'
 
-const AppRouteImport = createFileRoute('/app')()
-
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TosRoute = TosRouteImport.update({
   id: '/tos',
   path: '/tos',
@@ -45,6 +37,11 @@ const PrivpolicyRoute = PrivpolicyRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -100,10 +97,10 @@ const App_layoutRoute = App_layoutRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof App_layoutRoute
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app': typeof App_layoutRoute
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
@@ -130,10 +127,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app': typeof AppRouteWithChildren
   '/app/__layout': typeof App_layoutRoute
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
@@ -148,10 +145,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/app'
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app'
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
@@ -177,10 +174,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/app'
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app'
     | '/app/__layout'
     | '/app/exercises'
     | '/app/inventory'
@@ -194,21 +191,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
   PrivpolicyRoute: typeof PrivpolicyRoute
   TosRoute: typeof TosRoute
-  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tos': {
       id: '/tos'
       path: '/tos'
@@ -228,6 +218,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -295,7 +292,7 @@ declare module '@tanstack/react-router' {
     }
     '/app/__layout': {
       id: '/app/__layout'
-      path: '/app'
+      path: ''
       fullPath: '/app'
       preLoaderRoute: typeof App_layoutRouteImport
       parentRoute: typeof AppRoute
@@ -330,10 +327,10 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   PrivpolicyRoute: PrivpolicyRoute,
   TosRoute: TosRoute,
-  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

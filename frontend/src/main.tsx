@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import "./index.css";
+import { useAuthStore } from "./store/auth"
 
 // import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -15,6 +16,9 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
+
+// Run rehydrate before router mounts
+useAuthStore.getState().rehydrate()
 
 // Render the app
 
