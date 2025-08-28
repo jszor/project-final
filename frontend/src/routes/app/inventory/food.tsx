@@ -37,6 +37,7 @@ function Food() {
           </li>
         ))}
       </ul>
+      <Link to="/app/inventory">⏎</Link>
     </>
   )
 }
