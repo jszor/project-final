@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/app/menu')({
-  component: RouteComponent,
+  component: Menu,
 })
 
-function RouteComponent() {
+function Menu() {
   return (
     <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1.5rem] gap-[3rem]">
       <h2 className="text-[1.5rem]">

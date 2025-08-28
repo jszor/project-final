@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/app/leaderboard')({
-  component: RouteComponent,
+  component: Leaderboard,
 })
 
-function RouteComponent() {
+function Leaderboard() {
   return <div>Hello "/app/leaderboard"!</div>
 }
