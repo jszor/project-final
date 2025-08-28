@@ -30,7 +30,7 @@ export const Login = () => {
 
   return (
     <div className="flex min-h-[500px] items-center justify-center bg-ammo-800">
-      <div className="w-full max-w-[450px] rounded-[25px] bg-ammo-700 p-[3rem]">
+      <div className="w-full max-w-[450px] rounded-[25px] bg-ammo-700 p-[3rem] border-1 border-ammo-100">
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
           <div>
