@@ -45,8 +45,8 @@ export const createPet = async (req, res) => {
 export const getPet = async (req, res) => {
   
   try {
-    // Find pet by user
-    let pet = await Pet.findOne({ owner: req.user._id });
+    // Find pet by user with status "alive"
+    let pet = await Pet.findOne({ owner: req.user._id, status: "alive" });
 
     if (!pet) {
       return res.status(404).json({ message: "No active pet found" });
