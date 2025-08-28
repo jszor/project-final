@@ -22,7 +22,6 @@ import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppInventoryRouteImport } from './routes/app/inventory'
 import { Route as AppExercisesRouteImport } from './routes/app/exercises'
-import { Route as App_layoutRouteImport } from './routes/app/__layout'
 
 const TosRoute = TosRouteImport.update({
   id: '/tos',
@@ -89,15 +88,11 @@ const AppExercisesRoute = AppExercisesRouteImport.update({
   path: '/exercises',
   getParentRoute: () => AppRoute,
 } as any)
-const App_layoutRoute = App_layoutRouteImport.update({
-  id: '/__layout',
-  getParentRoute: () => AppRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/app': typeof App_layoutRoute
+  '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
@@ -115,13 +110,13 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app': typeof AppIndexRoute
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,7 +126,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app/__layout': typeof App_layoutRoute
   '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
@@ -163,13 +157,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app'
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
     | '/app/settings'
     | '/app/stats'
     | '/app/store'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -178,7 +172,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app/__layout'
     | '/app/exercises'
     | '/app/inventory'
     | '/app/leaderboard'
@@ -290,18 +283,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppExercisesRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/__layout': {
-      id: '/app/__layout'
-      path: ''
-      fullPath: '/app'
-      preLoaderRoute: typeof App_layoutRouteImport
-      parentRoute: typeof AppRoute
-    }
   }
 }
 
 interface AppRouteChildren {
-  App_layoutRoute: typeof App_layoutRoute
   AppExercisesRoute: typeof AppExercisesRoute
   AppInventoryRoute: typeof AppInventoryRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
@@ -312,7 +297,6 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  App_layoutRoute: App_layoutRoute,
   AppExercisesRoute: AppExercisesRoute,
   AppInventoryRoute: AppInventoryRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
