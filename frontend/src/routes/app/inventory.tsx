@@ -14,6 +14,7 @@ function Inventory() {
       <Link to="/app/inventory/toys">toys</Link>
       <Link to="/app/inventory/medicine">medicine</Link>
       <Link to="/app/inventory/powerups">powerups</Link>
+      <Link to="/app/menu">⏎</Link>
       <Outlet />
   </div>
   )
