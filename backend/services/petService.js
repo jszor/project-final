@@ -4,7 +4,7 @@ import { applyPetDecay } from "../utils/petUtils.js";
 // Award XP
 
 export const awardXP = async (userId, amount) => {
-  let pet = await Pet.findOne({ owner: userId });
+  let pet = await Pet.findOne({ owner: userId, status: "alive" });
   if (!pet) throw new Error("Pet not found");
 
   pet = applyPetDecay(pet);
@@ -32,7 +32,7 @@ export const awardXP = async (userId, amount) => {
 // Award coins
 
 export const awardCoins = async (userId, amount) => {
-  let pet = await Pet.findOne({ owner: userId });
+  let pet = await Pet.findOne({ owner: userId, status: "alive" });
   if (!pet) throw new Error("Pet not found");
 
   pet = applyPetDecay(pet);

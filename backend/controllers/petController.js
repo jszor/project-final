@@ -74,7 +74,7 @@ export const getPet = async (req, res) => {
 // GET inventory
 export const getInventory = async (req, res) => {
   try {
-    const pet = await Pet.findOne({ owner: req.user._id });
+    const pet = await Pet.findOne({ owner: req.user._id, status: "alive" });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
@@ -100,7 +100,7 @@ export const addItem = async (req, res) => {
       return res.status(400).json({ message: "Item name, category and quantity required" });
     }
 
-    const pet = await Pet.findOne({ owner: req.user._id });
+    const pet = await Pet.findOne({ owner: req.user._id, status: "alive" });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
@@ -130,7 +130,7 @@ export const removeItem = async (req, res) => {
       return res.status(400).json({ message: "Item name required" });
     }
 
-    const pet = await Pet.findOne({ owner: req.user._id });
+    const pet = await Pet.findOne({ owner: req.user._id, status: "alive" });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
@@ -165,7 +165,7 @@ export const useItem = async (req, res) => {
       return res.status(400).json({ message: "Item name required" });
     }
 
-    let pet = await Pet.findOne({ owner: req.user._id });
+    let pet = await Pet.findOne({ owner: req.user._id, status: "alive" });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
