@@ -1,7 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link, useLocation, Outlet } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { usePetStore } from '../../../store/pet'
-import { Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/app/inventory/food')({
   component: Food,
@@ -9,13 +8,22 @@ export const Route = createFileRoute('/app/inventory/food')({
 
 function Food() {
   const { fetchPet, foodItems, loading, error } = usePetStore()
+  const location = useLocation()
+  
+  // Check if user is viewing a specific food item
+  const isViewingItem = location.pathname.includes('/food/')
 
   // Fetch pet data on mount
   useEffect(() => {
     fetchPet()
   }, [fetchPet])
 
-  const foods = foodItems() // get only food items
+  // If viewing a specific item, render the outlet for the child route
+  if (isViewingItem) {
+    return <Outlet />
+  }
+
+  const foods = foodItems() 
 
   if (loading) return <p>Loading food items...</p>
   if (error) return <p>Error: {error}</p>
