@@ -1,7 +1,7 @@
 export const LeftPanel = () => {
   return (
-    <div>
-      <p>Left Panel</p>
+    <div className="flex h-full justify-center items-center text-ammo-100">
+      404 Not Found!
     </div>
   )
 }

@@ -23,16 +23,12 @@ function RouteComponent() {
   return (
     <div>
       <div className="flex flex-col min-h-screen">
-        {/* App Header */}
         <AppHeader />
-
-        {/* Main content: left + right panels */}
-        <div className="flex flex-1">
-          {/* Left panel with tamagotchi console */}
-          <LeftPanel />
-
-          {/* Right panel changes depending on nested route */}
-          <div className="flex-1 p-4">
+        <div className="flex gap-[20px]">
+          <div className="w-1/2 h-[720px] bg-ammo-700 ml-[2rem] mb-[2rem] rounded-[25px]">
+            <LeftPanel />
+          </div>
+          <div className="w-1/2 h-[720px] bg-ammo-700 mr-[2rem] mb-[2rem] rounded-[25px]">
             <Outlet />
           </div>
         </div>

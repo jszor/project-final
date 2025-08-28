@@ -9,7 +9,7 @@ export const AppHeader = () => {
   const greetingName = user?.initials || "there";
 
   return (
-    <header className="flex items-center justify-between bg-ammo-800 text-ammo-100 px-[3rem] py-[2rem] text-[14px]">
+    <header className="flex items-center justify-between bg-ammo-800 text-ammo-100 px-[3rem] py-[1rem] text-[14px]">
       <p>
         Hi, {greetingName}!
       </p>
