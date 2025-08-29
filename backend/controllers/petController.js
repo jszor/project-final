@@ -255,7 +255,7 @@ export const useItem = async (req, res) => {
     await pet.save();
 
     res.json({
-      message: `${itemName} used on pet`,
+      message: `${itemName} used! Your pet looks pleased.`,
       pet,
     });
   } catch (error) {
