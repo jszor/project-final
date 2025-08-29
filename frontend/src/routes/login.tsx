@@ -79,7 +79,7 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-8 py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline disabled:opacity-50"
+              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-8 py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline hover:bg-ammo-600 disabled:opacity-50"
             >
               Log In
             </button>
@@ -87,8 +87,8 @@ export const Login = () => {
         </form>
         <p className="mt-[2rem] text-center text-[0.75rem] font-pstp text-ammo-100">
           Don’t have an account?<br />
-          <a href="/" className="text-ammo-100 hover:underline">
-            Sign up here!
+          <a href="/" className="text-ammo-100">
+            <span className="underline">Sign up here</span>!
           </a>
         </p>
       </div>

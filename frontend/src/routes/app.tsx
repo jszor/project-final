@@ -25,10 +25,10 @@ function RouteComponent() {
       <div className="flex flex-col min-h-screen">
         <AppHeader />
         <div className="flex gap-[20px]">
-          <div className="w-1/2 h-[720px] bg-ammo-700 ml-[2rem] mb-[2rem] rounded-[25px]">
+          <div className="w-1/2 h-[720px] bg-ammo-700 ml-[2rem] mb-[2rem] rounded-[25px] border-2 border-ammo-600">
             <LeftPanel />
           </div>
-          <div className="w-1/2 h-[720px] bg-ammo-700 mr-[2rem] mb-[2rem] rounded-[25px]">
+          <div className="w-1/2 h-[720px] bg-ammo-700 mr-[2rem] mb-[2rem] rounded-[25px] border-2 border-ammo-600">
             <Outlet />
           </div>
         </div>

@@ -16,7 +16,7 @@ export const AppHeader = () => {
       <p>
         BrainPet v1.0
       </p>
-      <button onClick={() => { logout(); navigate({ to: "/login" }); }} className="bg-ammo-700 hover:bg-ammo-600 text-ammo-100 px-6 py-3 rounded-[25px] cursor-pointer">
+      <button onClick={() => { logout(); navigate({ to: "/login" }); }} className="bg-ammo-700 hover:bg-ammo-600 text-ammo-100 px-6 py-3 border-2 border-ammo-600 rounded-[25px] cursor-pointer">
         Log Out
       </button>
     </header>

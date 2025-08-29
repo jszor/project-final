@@ -25,9 +25,21 @@ function Food() {
 
   const foods = foodItems() 
 
-  if (loading) return <p>Loading food items...</p>
-  if (error) return <p>Error: {error}</p>
-  if (!foods.length) return <p>No food items in inventory.</p>
+  if (loading) return <p className="text-center">Loading food items...</p>
+  if (error) return <p className="text-center">Error: {error}</p>
+  
+  if (!foods.length) {
+    return (
+      <div className="flex flex-col justify-center items-center gap-8">
+        <p className="text-center">No food items in inventory.</p>
+        <Link to="/app/inventory">
+          <div className="text-[1.5rem] w-[75px] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+            ⏎
+          </div>
+      </Link>
+      </div>
+    )
+  }
 
   return (
     <>
