@@ -45,7 +45,11 @@ function Food() {
           </li>
         ))}
       </ul>
-      <Link to="/app/inventory">⏎</Link>
+      <Link to="/app/inventory">
+        <div className="text-[1.5rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+          ⏎
+        </div>
+      </Link>
     </>
   )
 }

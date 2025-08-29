@@ -38,7 +38,7 @@ function FoodItem() {
 
   return (
     <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1rem] gap-[2rem]">
-      <h2 className="text-[1.5rem]">{storeItem.name}</h2>
+      <h2 className="text-[1.5rem]">&lt;{storeItem.name}&gt;</h2>
       <p className="underline">Description:</p> 
       <p className="max-w-[80%] text-center">{storeItem.description || 'No description available'}</p>
       <p className="underline">Quantity:</p>

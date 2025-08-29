@@ -10,12 +10,12 @@ function Menu() {
       <h2 className="text-[1.5rem]">
         MAIN MENU:
       </h2>
-      <Link to="/app/exercises">quests</Link>
-      <Link to="/app/inventory">inventory</Link>
-      <Link to="/app/store">store</Link>
-      <Link to="/app/stats">stats</Link>
-      <Link to="/app/leaderboard">leaderboard</Link>
-      <Link to="/app/settings">settings</Link>
+      <Link to="/app/exercises" className="hover:underline">quests</Link>
+      <Link to="/app/inventory" className="hover:underline">inventory</Link>
+      <Link to="/app/store" className="hover:underline">store</Link>
+      <Link to="/app/stats" className="hover:underline">stats</Link>
+      <Link to="/app/leaderboard" className="hover:underline">leaderboard</Link>
+      <Link to="/app/settings" className="hover:underline">settings</Link>
     </div>
   )
 }

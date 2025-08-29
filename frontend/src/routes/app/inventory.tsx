@@ -18,11 +18,15 @@ function Inventory() {
           <h2 className="text-[1.5rem]">
             INVENTORY:
           </h2>
-          <Link to="/app/inventory/food">food</Link>
-          <Link to="/app/inventory/toys">toys</Link>
-          <Link to="/app/inventory/medicine">medicine</Link>
-          <Link to="/app/inventory/powerups">powerups</Link>
-          <Link to="/app/menu">⏎</Link>
+          <Link to="/app/inventory/food" className="hover:underline">food</Link>
+          <Link to="/app/inventory/toys" className="hover:underline">toys</Link>
+          <Link to="/app/inventory/medicine" className="hover:underline">medicine</Link>
+          <Link to="/app/inventory/powerups" className="hover:underline">powerups</Link>
+          <Link to="/app/menu">
+            <div className="text-[1.5rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+              ⏎
+            </div>
+          </Link>
         </>
       )}
       <Outlet />
