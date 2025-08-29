@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useParams } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePetStore } from '../../../store/pet'
 import { useStoreStore } from '../../../store/store'
 
@@ -10,8 +10,10 @@ export const Route = createFileRoute('/app/inventory/food/$itemId')({
 
 function FoodItem() {
   const { itemId } = useParams({ from: '/app/inventory/food/$itemId' })
-  const { pet, fetchPet } = usePetStore()
+  const { pet, fetchPet, useItem } = usePetStore()
   const { items: storeItems, fetchItems } = useStoreStore()
+  const [using, setUsing] = useState(false)
+  const [successMsg, setSuccessMsg] = useState('')
 
   useEffect(() => {
     fetchPet()
@@ -19,11 +21,20 @@ function FoodItem() {
   }, [fetchPet, fetchItems])
 
   if (!pet) return <p>Loading pet data...</p>
+
   const inventoryItem = pet.inventory.find((i) => i.itemName === itemId)
   if (!inventoryItem) return <p>Item not found in your inventory.</p>
 
   const storeItem = storeItems.find((i) => i.name === itemId)
   if (!storeItem) return <p>Loading item details...</p>
+
+  const handleUse = async () => {
+    setUsing(true)
+    setSuccessMsg('')
+    const result = await useItem(inventoryItem.itemName);
+    setSuccessMsg(result.message);
+    setUsing(false);
+  }
 
   return (
     <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1rem] gap-[2rem]">
@@ -47,11 +58,23 @@ function FoodItem() {
       {storeItem.powerup && (
         <p>Powerup: {storeItem.powerup.type} ({storeItem.powerup.duration / 1000}s)</p>
       )}
-      <Link to="/app/inventory/food">
-        <div className="text-[1.5rem]">
-          ⏎
-        </div>
-      </Link>
+
+      {successMsg && <p className="text-ammo-100 text-center">"{successMsg}"</p>}
+      <div className="flex gap-8">
+        <button
+          onClick={handleUse}
+          disabled={using || inventoryItem.quantity <= 0}
+          className="text-ammo-100 border-2 hover:bg-ammo-600 cursor-pointer px-6 py-3 rounded-[25px] disabled:opacity-50"
+        >
+          Feed
+        </button>
+
+        <Link to="/app/inventory/food">
+          <div className="text-[1.5rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+            ⏎
+          </div>
+        </Link>
+      </div>
     </div>
   )
 }

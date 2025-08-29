@@ -58,7 +58,7 @@ type PetState = {
 
   // actions
   fetchPet: () => Promise<void>;
-  useItem: (itemName: string) => Promise<void>;
+  useItem: (itemName: string) => Promise<{ success: boolean; message: string }>;
   addXP: (amount: number) => Promise<void>;
   addCoins: (amount: number) => Promise<void>;
   fetchInventory: () => Promise<void>;
@@ -114,11 +114,20 @@ export const usePetStore = create<PetState>((set, get) => ({
         },
         body: JSON.stringify({ itemName }),
       });
-      if (!res.ok) throw new Error(await res.text());
-      const data: { pet: Pet } = await res.json();
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return { success: false, message: data.message || "Failed to use item." };
+      }
+    
       set({ pet: data.pet, loading: false });
+      return { success: true, message: data.message || `${itemName} used.` };
     } catch (err: any) {
       set({ error: err.message, loading: false });
+      return { success: false, message: err.message };
+    } finally {
+      set({ loading: false });
     }
   },
 
