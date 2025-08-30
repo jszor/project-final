@@ -42,7 +42,7 @@
 
   /* Custom selection highlight, still to be tweaked */
   ::selection {
-    background: var(--color-ammo-400);
+    background: var(--color-ammo-100);
     color: var(--color-ammo-800);
   }
 }
