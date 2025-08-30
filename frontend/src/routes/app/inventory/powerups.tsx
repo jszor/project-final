@@ -25,7 +25,7 @@ function Powerups() {
 
   const powerups = powerupItems() 
 
-  if (loading) return <p className="text-center px-[2rem]">Loading power-up items...</p>
+  if (loading) return <p className="text-center px-[2rem]">Loading powerups...</p>
   if (error) return <p className="text-center">Error: {error}</p>
   
   if (!powerups.length) {

@@ -25,7 +25,7 @@ function FoodItem() {
   if (!inventoryItem) {
     return (
       <div className="flex flex-col justify-center items-center gap-8">
-        <p className="text-center">Item not found in your inventory.</p>
+        <p className="text-center px-[2rem]">Item not currently found in your inventory.</p>
         <Link to="/app/inventory/food">
           <div className="text-[1.5rem] w-[75px] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
             ⏎
@@ -50,7 +50,7 @@ function FoodItem() {
     <div className="flex flex-col h-full justify-center items-center text-ammo-100 text-[1rem] gap-[2rem]">
       <h2 className="text-[1.5rem]">&lt;{storeItem.name}&gt;</h2>
       <p className="underline">Description:</p> 
-      <p className="max-w-[80%] text-center">{storeItem.description || 'No description available'}</p>
+      <p className="max-w-[80%] text-center px-[1.5rem]">{storeItem.description || 'No description available'}</p>
       <p className="underline">Quantity:</p>
       <p>x {inventoryItem.quantity}</p>
 
@@ -59,17 +59,24 @@ function FoodItem() {
           <p className="underline">Effects:</p>
           <ul>
             {storeItem.effects.map((effect, idx) => (
-              <li key={idx}>{effect.stat} +{effect.amount}</li>
+              <li key={idx} className="text-center">{effect.stat} +{effect.amount}</li>
             ))}
           </ul>
         </>
       )}
 
       {storeItem.powerup && (
-        <p>Powerup: {storeItem.powerup.type} ({storeItem.powerup.duration / 1000}s)</p>
+        <>
+          <p className="underline">Duration:</p>
+          <p>
+              {storeItem.powerup.duration >= 3600000
+                ? `${(storeItem.powerup.duration / 3600000)} hours`
+                : `${storeItem.powerup.duration / 60000} minutes`}
+          </p>
+        </>
       )}
 
-      {successMsg && <p className="text-ammo-100 text-center">"{successMsg}"</p>}
+      {successMsg && <p className="text-ammo-100 text-center px-[2rem]">"{successMsg}"</p>}
       <div className="flex gap-8">
         <button
           onClick={handleUse}

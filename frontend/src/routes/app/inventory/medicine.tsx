@@ -25,7 +25,7 @@ function Medicine() {
 
   const medicine = medicineItems() 
 
-  if (loading) return <p className="text-center">Loading medicine items...</p>
+  if (loading) return <p className="text-center px-[2rem]">Loading medicine...</p>
   if (error) return <p className="text-center">Error: {error}</p>
   
   if (!medicine.length) {
