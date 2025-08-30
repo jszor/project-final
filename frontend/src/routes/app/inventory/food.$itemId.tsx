@@ -23,7 +23,18 @@ function FoodItem() {
   if (!pet) return <p>Loading pet data...</p>
 
   const inventoryItem = pet.inventory.find((i) => i.itemName === itemId)
-  if (!inventoryItem) return <p>Item not found in your inventory.</p>
+  if (!inventoryItem) {
+    return (
+      <div className="flex flex-col justify-center items-center gap-8">
+        <p className="text-center">Item not found in your inventory.</p>
+        <Link to="/app/inventory/food">
+          <div className="text-[1.5rem] w-[75px] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+            ⏎
+          </div>
+      </Link>
+      </div>
+    )
+  } 
 
   const storeItem = storeItems.find((i) => i.name === itemId)
   if (!storeItem) return <p>Loading item details...</p>
