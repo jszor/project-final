@@ -31,7 +31,7 @@ function Medicine() {
   if (!medicine.length) {
     return (
       <div className="flex flex-col justify-center items-center gap-8">
-        <p className="text-center">No medicine in inventory.</p>
+        <p className="text-center px-[3rem]">Currently no medicine in inventory.</p>
         <Link to="/app/inventory">
           <div className="text-[1.5rem] w-[75px] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
             ⏎
