@@ -9,7 +9,7 @@ export const NavBar = () => {
         <Link to="/about" className="focus:underline focus:outline-none focus:ring-0">
           About
         </Link>
-        <Link to="/login" className="outline-2 outline-ammo-100 focus:underlin rounded-[30px] px-[34px] py-[14px]">
+        <Link to="/login" className="outline-2 outline-ammo-100 focus:underline rounded-[30px] px-[34px] py-[14px]">
           Log In
         </Link>
       </div>

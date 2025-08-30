@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useParams } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { usePetStore } from '../../../store/pet'
 import { useStoreStore } from '../../../store/store'
