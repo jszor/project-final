@@ -10,7 +10,7 @@ function Medicine() {
   const { fetchPet, medicineItems, loading, error } = usePetStore()
   const location = useLocation()
   
-  // Check if user is viewing a specific food item
+  // Check if user is viewing a specific medicine item
   const isViewingItem = location.pathname.includes('/medicine/')
 
   // Fetch pet data on mount
