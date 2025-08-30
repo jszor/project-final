@@ -6,7 +6,6 @@ import { LeftPanel } from '../components/app/LeftPanel'
 export const Route = createFileRoute('/app')({
   beforeLoad: ({ location }) => {
     const state = useAuthStore.getState()
-    console.log('beforeLoad auth state:', state)
 
     if (!state.token) {
       throw redirect({ to: '/login' })
