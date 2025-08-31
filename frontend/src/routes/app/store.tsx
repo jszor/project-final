@@ -20,8 +20,8 @@ function Store() {
           </h2>
           <Link to="/app/store/food" className="hover:underline">food</Link>
           <Link to="/app/store/toys" className="hover:underline">toys</Link>
-          {/* <Link to="/app/store/medicine" className="hover:underline">medicine</Link>
-          <Link to="/app/store/powerups" className="hover:underline">powerups</Link> */}
+          <Link to="/app/store/medicine" className="hover:underline">medicine</Link>
+          {/* <Link to="/app/store/powerups" className="hover:underline">powerups</Link> */}
           <Link to="/app/menu">
             <div className="text-[1.5rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
               ⏎

@@ -23,12 +23,14 @@ import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppInventoryRouteImport } from './routes/app/inventory'
 import { Route as AppExercisesRouteImport } from './routes/app/exercises'
 import { Route as AppStoreToysRouteImport } from './routes/app/store/toys'
+import { Route as AppStoreMedicineRouteImport } from './routes/app/store/medicine'
 import { Route as AppStoreFoodRouteImport } from './routes/app/store/food'
 import { Route as AppInventoryToysRouteImport } from './routes/app/inventory/toys'
 import { Route as AppInventoryPowerupsRouteImport } from './routes/app/inventory/powerups'
 import { Route as AppInventoryMedicineRouteImport } from './routes/app/inventory/medicine'
 import { Route as AppInventoryFoodRouteImport } from './routes/app/inventory/food'
 import { Route as AppStoreToysItemIdRouteImport } from './routes/app/store/toys.$itemId'
+import { Route as AppStoreMedicineItemIdRouteImport } from './routes/app/store/medicine.$itemId'
 import { Route as AppStoreFoodItemIdRouteImport } from './routes/app/store/food.$itemId'
 import { Route as AppInventoryToysItemIdRouteImport } from './routes/app/inventory/toys.$itemId'
 import { Route as AppInventoryPowerupsItemIdRouteImport } from './routes/app/inventory/powerups.$itemId'
@@ -105,6 +107,11 @@ const AppStoreToysRoute = AppStoreToysRouteImport.update({
   path: '/toys',
   getParentRoute: () => AppStoreRoute,
 } as any)
+const AppStoreMedicineRoute = AppStoreMedicineRouteImport.update({
+  id: '/medicine',
+  path: '/medicine',
+  getParentRoute: () => AppStoreRoute,
+} as any)
 const AppStoreFoodRoute = AppStoreFoodRouteImport.update({
   id: '/food',
   path: '/food',
@@ -134,6 +141,11 @@ const AppStoreToysItemIdRoute = AppStoreToysItemIdRouteImport.update({
   id: '/$itemId',
   path: '/$itemId',
   getParentRoute: () => AppStoreToysRoute,
+} as any)
+const AppStoreMedicineItemIdRoute = AppStoreMedicineItemIdRouteImport.update({
+  id: '/$itemId',
+  path: '/$itemId',
+  getParentRoute: () => AppStoreMedicineRoute,
 } as any)
 const AppStoreFoodItemIdRoute = AppStoreFoodItemIdRouteImport.update({
   id: '/$itemId',
@@ -182,12 +194,14 @@ export interface FileRoutesByFullPath {
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
   '/app/store/food': typeof AppStoreFoodRouteWithChildren
+  '/app/store/medicine': typeof AppStoreMedicineRouteWithChildren
   '/app/store/toys': typeof AppStoreToysRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
   '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
+  '/app/store/medicine/$itemId': typeof AppStoreMedicineItemIdRoute
   '/app/store/toys/$itemId': typeof AppStoreToysItemIdRoute
 }
 export interface FileRoutesByTo {
@@ -209,12 +223,14 @@ export interface FileRoutesByTo {
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
   '/app/store/food': typeof AppStoreFoodRouteWithChildren
+  '/app/store/medicine': typeof AppStoreMedicineRouteWithChildren
   '/app/store/toys': typeof AppStoreToysRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
   '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
+  '/app/store/medicine/$itemId': typeof AppStoreMedicineItemIdRoute
   '/app/store/toys/$itemId': typeof AppStoreToysItemIdRoute
 }
 export interface FileRoutesById {
@@ -237,12 +253,14 @@ export interface FileRoutesById {
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
   '/app/store/food': typeof AppStoreFoodRouteWithChildren
+  '/app/store/medicine': typeof AppStoreMedicineRouteWithChildren
   '/app/store/toys': typeof AppStoreToysRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
   '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
+  '/app/store/medicine/$itemId': typeof AppStoreMedicineItemIdRoute
   '/app/store/toys/$itemId': typeof AppStoreToysItemIdRoute
 }
 export interface FileRouteTypes {
@@ -266,12 +284,14 @@ export interface FileRouteTypes {
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
     | '/app/store/food'
+    | '/app/store/medicine'
     | '/app/store/toys'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
     | '/app/store/food/$itemId'
+    | '/app/store/medicine/$itemId'
     | '/app/store/toys/$itemId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -293,12 +313,14 @@ export interface FileRouteTypes {
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
     | '/app/store/food'
+    | '/app/store/medicine'
     | '/app/store/toys'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
     | '/app/store/food/$itemId'
+    | '/app/store/medicine/$itemId'
     | '/app/store/toys/$itemId'
   id:
     | '__root__'
@@ -320,12 +342,14 @@ export interface FileRouteTypes {
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
     | '/app/store/food'
+    | '/app/store/medicine'
     | '/app/store/toys'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
     | '/app/store/food/$itemId'
+    | '/app/store/medicine/$itemId'
     | '/app/store/toys/$itemId'
   fileRoutesById: FileRoutesById
 }
@@ -438,6 +462,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStoreToysRouteImport
       parentRoute: typeof AppStoreRoute
     }
+    '/app/store/medicine': {
+      id: '/app/store/medicine'
+      path: '/medicine'
+      fullPath: '/app/store/medicine'
+      preLoaderRoute: typeof AppStoreMedicineRouteImport
+      parentRoute: typeof AppStoreRoute
+    }
     '/app/store/food': {
       id: '/app/store/food'
       path: '/food'
@@ -479,6 +510,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/store/toys/$itemId'
       preLoaderRoute: typeof AppStoreToysItemIdRouteImport
       parentRoute: typeof AppStoreToysRoute
+    }
+    '/app/store/medicine/$itemId': {
+      id: '/app/store/medicine/$itemId'
+      path: '/$itemId'
+      fullPath: '/app/store/medicine/$itemId'
+      preLoaderRoute: typeof AppStoreMedicineItemIdRouteImport
+      parentRoute: typeof AppStoreMedicineRoute
     }
     '/app/store/food/$itemId': {
       id: '/app/store/food/$itemId'
@@ -592,6 +630,17 @@ const AppStoreFoodRouteWithChildren = AppStoreFoodRoute._addFileChildren(
   AppStoreFoodRouteChildren,
 )
 
+interface AppStoreMedicineRouteChildren {
+  AppStoreMedicineItemIdRoute: typeof AppStoreMedicineItemIdRoute
+}
+
+const AppStoreMedicineRouteChildren: AppStoreMedicineRouteChildren = {
+  AppStoreMedicineItemIdRoute: AppStoreMedicineItemIdRoute,
+}
+
+const AppStoreMedicineRouteWithChildren =
+  AppStoreMedicineRoute._addFileChildren(AppStoreMedicineRouteChildren)
+
 interface AppStoreToysRouteChildren {
   AppStoreToysItemIdRoute: typeof AppStoreToysItemIdRoute
 }
@@ -606,11 +655,13 @@ const AppStoreToysRouteWithChildren = AppStoreToysRoute._addFileChildren(
 
 interface AppStoreRouteChildren {
   AppStoreFoodRoute: typeof AppStoreFoodRouteWithChildren
+  AppStoreMedicineRoute: typeof AppStoreMedicineRouteWithChildren
   AppStoreToysRoute: typeof AppStoreToysRouteWithChildren
 }
 
 const AppStoreRouteChildren: AppStoreRouteChildren = {
   AppStoreFoodRoute: AppStoreFoodRouteWithChildren,
+  AppStoreMedicineRoute: AppStoreMedicineRouteWithChildren,
   AppStoreToysRoute: AppStoreToysRouteWithChildren,
 }
 
