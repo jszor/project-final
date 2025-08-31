@@ -22,10 +22,12 @@ import { Route as AppMenuRouteImport } from './routes/app/menu'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppInventoryRouteImport } from './routes/app/inventory'
 import { Route as AppExercisesRouteImport } from './routes/app/exercises'
+import { Route as AppStoreFoodRouteImport } from './routes/app/store/food'
 import { Route as AppInventoryToysRouteImport } from './routes/app/inventory/toys'
 import { Route as AppInventoryPowerupsRouteImport } from './routes/app/inventory/powerups'
 import { Route as AppInventoryMedicineRouteImport } from './routes/app/inventory/medicine'
 import { Route as AppInventoryFoodRouteImport } from './routes/app/inventory/food'
+import { Route as AppStoreFoodItemIdRouteImport } from './routes/app/store/food.$itemId'
 import { Route as AppInventoryToysItemIdRouteImport } from './routes/app/inventory/toys.$itemId'
 import { Route as AppInventoryPowerupsItemIdRouteImport } from './routes/app/inventory/powerups.$itemId'
 import { Route as AppInventoryMedicineItemIdRouteImport } from './routes/app/inventory/medicine.$itemId'
@@ -96,6 +98,11 @@ const AppExercisesRoute = AppExercisesRouteImport.update({
   path: '/exercises',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStoreFoodRoute = AppStoreFoodRouteImport.update({
+  id: '/food',
+  path: '/food',
+  getParentRoute: () => AppStoreRoute,
+} as any)
 const AppInventoryToysRoute = AppInventoryToysRouteImport.update({
   id: '/toys',
   path: '/toys',
@@ -115,6 +122,11 @@ const AppInventoryFoodRoute = AppInventoryFoodRouteImport.update({
   id: '/food',
   path: '/food',
   getParentRoute: () => AppInventoryRoute,
+} as any)
+const AppStoreFoodItemIdRoute = AppStoreFoodItemIdRouteImport.update({
+  id: '/$itemId',
+  path: '/$itemId',
+  getParentRoute: () => AppStoreFoodRoute,
 } as any)
 const AppInventoryToysItemIdRoute = AppInventoryToysItemIdRouteImport.update({
   id: '/$itemId',
@@ -152,15 +164,17 @@ export interface FileRoutesByFullPath {
   '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
-  '/app/store': typeof AppStoreRoute
+  '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
   '/app/inventory/medicine': typeof AppInventoryMedicineRouteWithChildren
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
+  '/app/store/food': typeof AppStoreFoodRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
+  '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -175,15 +189,17 @@ export interface FileRoutesByTo {
   '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
-  '/app/store': typeof AppStoreRoute
+  '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
   '/app/inventory/medicine': typeof AppInventoryMedicineRouteWithChildren
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
+  '/app/store/food': typeof AppStoreFoodRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
+  '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -199,15 +215,17 @@ export interface FileRoutesById {
   '/app/menu': typeof AppMenuRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
-  '/app/store': typeof AppStoreRoute
+  '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
   '/app/inventory/medicine': typeof AppInventoryMedicineRouteWithChildren
   '/app/inventory/powerups': typeof AppInventoryPowerupsRouteWithChildren
   '/app/inventory/toys': typeof AppInventoryToysRouteWithChildren
+  '/app/store/food': typeof AppStoreFoodRouteWithChildren
   '/app/inventory/food/$itemId': typeof AppInventoryFoodItemIdRoute
   '/app/inventory/medicine/$itemId': typeof AppInventoryMedicineItemIdRoute
   '/app/inventory/powerups/$itemId': typeof AppInventoryPowerupsItemIdRoute
   '/app/inventory/toys/$itemId': typeof AppInventoryToysItemIdRoute
+  '/app/store/food/$itemId': typeof AppStoreFoodItemIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -229,10 +247,12 @@ export interface FileRouteTypes {
     | '/app/inventory/medicine'
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
+    | '/app/store/food'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
+    | '/app/store/food/$itemId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -252,10 +272,12 @@ export interface FileRouteTypes {
     | '/app/inventory/medicine'
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
+    | '/app/store/food'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
+    | '/app/store/food/$itemId'
   id:
     | '__root__'
     | '/'
@@ -275,10 +297,12 @@ export interface FileRouteTypes {
     | '/app/inventory/medicine'
     | '/app/inventory/powerups'
     | '/app/inventory/toys'
+    | '/app/store/food'
     | '/app/inventory/food/$itemId'
     | '/app/inventory/medicine/$itemId'
     | '/app/inventory/powerups/$itemId'
     | '/app/inventory/toys/$itemId'
+    | '/app/store/food/$itemId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -383,6 +407,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppExercisesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/store/food': {
+      id: '/app/store/food'
+      path: '/food'
+      fullPath: '/app/store/food'
+      preLoaderRoute: typeof AppStoreFoodRouteImport
+      parentRoute: typeof AppStoreRoute
+    }
     '/app/inventory/toys': {
       id: '/app/inventory/toys'
       path: '/toys'
@@ -410,6 +441,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/inventory/food'
       preLoaderRoute: typeof AppInventoryFoodRouteImport
       parentRoute: typeof AppInventoryRoute
+    }
+    '/app/store/food/$itemId': {
+      id: '/app/store/food/$itemId'
+      path: '/$itemId'
+      fullPath: '/app/store/food/$itemId'
+      preLoaderRoute: typeof AppStoreFoodItemIdRouteImport
+      parentRoute: typeof AppStoreFoodRoute
     }
     '/app/inventory/toys/$itemId': {
       id: '/app/inventory/toys/$itemId'
@@ -504,6 +542,30 @@ const AppInventoryRouteWithChildren = AppInventoryRoute._addFileChildren(
   AppInventoryRouteChildren,
 )
 
+interface AppStoreFoodRouteChildren {
+  AppStoreFoodItemIdRoute: typeof AppStoreFoodItemIdRoute
+}
+
+const AppStoreFoodRouteChildren: AppStoreFoodRouteChildren = {
+  AppStoreFoodItemIdRoute: AppStoreFoodItemIdRoute,
+}
+
+const AppStoreFoodRouteWithChildren = AppStoreFoodRoute._addFileChildren(
+  AppStoreFoodRouteChildren,
+)
+
+interface AppStoreRouteChildren {
+  AppStoreFoodRoute: typeof AppStoreFoodRouteWithChildren
+}
+
+const AppStoreRouteChildren: AppStoreRouteChildren = {
+  AppStoreFoodRoute: AppStoreFoodRouteWithChildren,
+}
+
+const AppStoreRouteWithChildren = AppStoreRoute._addFileChildren(
+  AppStoreRouteChildren,
+)
+
 interface AppRouteChildren {
   AppExercisesRoute: typeof AppExercisesRoute
   AppInventoryRoute: typeof AppInventoryRouteWithChildren
@@ -511,7 +573,7 @@ interface AppRouteChildren {
   AppMenuRoute: typeof AppMenuRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppStatsRoute: typeof AppStatsRoute
-  AppStoreRoute: typeof AppStoreRoute
+  AppStoreRoute: typeof AppStoreRouteWithChildren
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -521,7 +583,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppMenuRoute: AppMenuRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppStatsRoute: AppStatsRoute,
-  AppStoreRoute: AppStoreRoute,
+  AppStoreRoute: AppStoreRouteWithChildren,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
