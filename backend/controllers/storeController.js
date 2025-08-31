@@ -33,7 +33,7 @@ export const buyItem = async (req, res) => {
     const { itemId } = req.body; // (called itemId, but is actually the item name, not its actual id)
     const userId = req.user._id;
 
-    const pet = await Pet.findOne({ owner: userId });
+    const pet = await Pet.findOne({ owner: userId, status: "alive" });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found!" });
     }
@@ -65,7 +65,6 @@ export const buyItem = async (req, res) => {
       });
     }
 
-    pet.markModified("inventory");
     await pet.save();
 
     res.json({
