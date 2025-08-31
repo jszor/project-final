@@ -30,15 +30,15 @@ export const getStoreItemById = async (req, res) => {
 // POST buy item from store
 export const buyItem = async (req, res) => {
   try {
-    const { itemId } = req.body;
-    const userId = req.user._id; // comes from authenticateUser middleware
+    const { itemId } = req.body; // (called itemId, but is actually the item name, not its actual id)
+    const userId = req.user._id;
 
     const pet = await Pet.findOne({ owner: userId });
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
 
-    const item = await Item.findById(itemId);
+    const item = await Item.findOne({ name: itemId });
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }
