@@ -7,7 +7,7 @@ export const getStoreItems = async (req, res) => {
     const items = await Item.find();
     res.status(200).json(items);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching store items", error });
+    res.status(500).json({ message: "Error fetching store items.", error });
   }
 };
 
@@ -18,12 +18,12 @@ export const getStoreItemById = async (req, res) => {
     const item = await Item.findById(id);
 
     if (!item) {
-      return res.status(404).json({ message: "Item not found" });
+      return res.status(404).json({ message: "Item not found!" });
     }
 
     res.status(200).json(item);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching store item", error });
+    res.status(500).json({ message: "Error fetching store item.", error });
   }
 };
 
@@ -35,16 +35,16 @@ export const buyItem = async (req, res) => {
 
     const pet = await Pet.findOne({ owner: userId });
     if (!pet) {
-      return res.status(404).json({ message: "Pet not found" });
+      return res.status(404).json({ message: "Pet not found!" });
     }
 
     const item = await Item.findOne({ name: itemId });
     if (!item) {
-      return res.status(404).json({ message: "Item not found" });
+      return res.status(404).json({ message: "Item not found!" });
     }
 
     if (pet.coins < item.price) {
-      return res.status(400).json({ message: "Not enough coins" });
+      return res.status(400).json({ message: "Not enough coin!" });
     }
 
     // Deduct coins
@@ -72,6 +72,6 @@ export const buyItem = async (req, res) => {
       pet,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error buying item", error });
+    res.status(500).json({ message: "Error buying item!", error });
   }
 };
