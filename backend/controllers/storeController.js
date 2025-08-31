@@ -68,7 +68,7 @@ export const buyItem = async (req, res) => {
     await pet.save();
 
     res.json({
-      message: `Successfully bought ${item.name}`,
+      message: `${item.name} added to inventory!`,
       pet,
     });
   } catch (error) {
