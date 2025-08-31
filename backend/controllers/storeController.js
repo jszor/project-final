@@ -44,7 +44,7 @@ export const buyItem = async (req, res) => {
     }
 
     if (pet.coins < item.price) {
-      return res.status(400).json({ message: "Not enough coin!" });
+      return res.status(400).json({ message: "Not enough coins!" });
     }
 
     // Deduct coins
@@ -65,6 +65,7 @@ export const buyItem = async (req, res) => {
       });
     }
 
+    pet.markModified("inventory");
     await pet.save();
 
     res.json({
