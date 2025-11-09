@@ -2,13 +2,11 @@
 
 BrainPet is a tamagotchi-like web app where the goal is to keep your virtual pet alive by tending to its needs.
 
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## The idea
 
 My goal was to create a virtual pet app that could integrate a learning aspect that allowed my students to solve exercises and gain coins and experience for their pets. The scope was a little ambitious for the given time frame, so it ended up just being a regular tamagotchi app for the hand-in, but I intend on developing the original idea later down the line.
 
-The technologies used in this project are:
+## Technologies used
 
 Frontend: React + TypeScript, TailwindCSS
 Backend: Node.js + Express
@@ -19,7 +17,7 @@ State management: Zustand
 External libraries: Framer Motion + node-cron + bcrypt
 Extracurricular hooks: useNavigate, useLocation.
 
-Other tools: Figma, Postman, Lighthouse, Trello.
+Additional tools: Figma, Postman, Lighthouse, Trello.
 
 The application is responsive for mobile, tablet and desktop (320px - 1600px) and supported on Chrome, Safari and Firefox. It follows accessibility standards, clean code practices and has a 100% score on Lighthouse.
 
