@@ -87,13 +87,6 @@ const items = [
     description: "A medicinal powder that cures disease. Hallelujah! "
   },
   {
-    name: "Double XP",
-    category: "powerup",
-    powerup: { type: "doubleXP", duration: 30 * 60 * 1000 }, // 30 min
-    price: 150,
-    description: "Earn double XP for 30 minutes."
-  },
-  {
     name: "Double Coins",
     category: "powerup",
     powerup: { type: "doubleCoins", duration: 30 * 60 * 1000 }, // 30 min

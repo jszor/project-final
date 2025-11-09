@@ -17,11 +17,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppStoreRouteImport } from './routes/app/store'
 import { Route as AppStatsRouteImport } from './routes/app/stats'
-import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppMenuRouteImport } from './routes/app/menu'
-import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppInventoryRouteImport } from './routes/app/inventory'
-import { Route as AppExercisesRouteImport } from './routes/app/exercises'
 import { Route as AppStoreToysRouteImport } from './routes/app/store/toys'
 import { Route as AppStorePowerupsRouteImport } from './routes/app/store/powerups'
 import { Route as AppStoreMedicineRouteImport } from './routes/app/store/medicine'
@@ -79,29 +76,14 @@ const AppStatsRoute = AppStatsRouteImport.update({
   path: '/stats',
   getParentRoute: () => AppRoute,
 } as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppMenuRoute = AppMenuRouteImport.update({
   id: '/menu',
   path: '/menu',
   getParentRoute: () => AppRoute,
 } as any)
-const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
-  id: '/leaderboard',
-  path: '/leaderboard',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppInventoryRoute = AppInventoryRouteImport.update({
   id: '/inventory',
   path: '/inventory',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppExercisesRoute = AppExercisesRouteImport.update({
-  id: '/exercises',
-  path: '/exercises',
   getParentRoute: () => AppRoute,
 } as any)
 const AppStoreToysRoute = AppStoreToysRouteImport.update({
@@ -194,11 +176,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRouteWithChildren
-  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/menu': typeof AppMenuRoute
-  '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
@@ -225,11 +204,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRouteWithChildren
-  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/menu': typeof AppMenuRoute
-  '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
@@ -257,11 +233,8 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privpolicy': typeof PrivpolicyRoute
   '/tos': typeof TosRoute
-  '/app/exercises': typeof AppExercisesRoute
   '/app/inventory': typeof AppInventoryRouteWithChildren
-  '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/menu': typeof AppMenuRoute
-  '/app/settings': typeof AppSettingsRoute
   '/app/stats': typeof AppStatsRoute
   '/app/store': typeof AppStoreRouteWithChildren
   '/app/inventory/food': typeof AppInventoryFoodRouteWithChildren
@@ -290,11 +263,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app/exercises'
     | '/app/inventory'
-    | '/app/leaderboard'
     | '/app/menu'
-    | '/app/settings'
     | '/app/stats'
     | '/app/store'
     | '/app/inventory/food'
@@ -321,11 +291,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app/exercises'
     | '/app/inventory'
-    | '/app/leaderboard'
     | '/app/menu'
-    | '/app/settings'
     | '/app/stats'
     | '/app/store'
     | '/app/inventory/food'
@@ -352,11 +319,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/privpolicy'
     | '/tos'
-    | '/app/exercises'
     | '/app/inventory'
-    | '/app/leaderboard'
     | '/app/menu'
-    | '/app/settings'
     | '/app/stats'
     | '/app/store'
     | '/app/inventory/food'
@@ -444,13 +408,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStatsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/settings': {
-      id: '/app/settings'
-      path: '/settings'
-      fullPath: '/app/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/app/menu': {
       id: '/app/menu'
       path: '/menu'
@@ -458,25 +415,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppMenuRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/leaderboard': {
-      id: '/app/leaderboard'
-      path: '/leaderboard'
-      fullPath: '/app/leaderboard'
-      preLoaderRoute: typeof AppLeaderboardRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/app/inventory': {
       id: '/app/inventory'
       path: '/inventory'
       fullPath: '/app/inventory'
       preLoaderRoute: typeof AppInventoryRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/exercises': {
-      id: '/app/exercises'
-      path: '/exercises'
-      fullPath: '/app/exercises'
-      preLoaderRoute: typeof AppExercisesRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/store/toys': {
@@ -721,21 +664,15 @@ const AppStoreRouteWithChildren = AppStoreRoute._addFileChildren(
 )
 
 interface AppRouteChildren {
-  AppExercisesRoute: typeof AppExercisesRoute
   AppInventoryRoute: typeof AppInventoryRouteWithChildren
-  AppLeaderboardRoute: typeof AppLeaderboardRoute
   AppMenuRoute: typeof AppMenuRoute
-  AppSettingsRoute: typeof AppSettingsRoute
   AppStatsRoute: typeof AppStatsRoute
   AppStoreRoute: typeof AppStoreRouteWithChildren
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppExercisesRoute: AppExercisesRoute,
   AppInventoryRoute: AppInventoryRouteWithChildren,
-  AppLeaderboardRoute: AppLeaderboardRoute,
   AppMenuRoute: AppMenuRoute,
-  AppSettingsRoute: AppSettingsRoute,
   AppStatsRoute: AppStatsRoute,
   AppStoreRoute: AppStoreRouteWithChildren,
 }

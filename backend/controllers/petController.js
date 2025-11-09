@@ -2,7 +2,7 @@ import { Pet } from "../models/pet.js";
 import { Item } from "../models/item.js"
 import { User } from "../models/user.js"
 import { applyPetDecay } from "../utils/petUtils.js";
-import { awardXP, awardCoins } from "../services/petService.js";
+import { awardCoins } from "../services/petService.js";
 
 // ================= PET =====================
 
@@ -28,6 +28,7 @@ export const createPet = async (req, res) => {
     const newPet = await Pet.create({
       owner: req.user._id,
       name: name || "Pomodoro",
+      coins: 500,
     });
 
     res.status(201).json(newPet);
@@ -199,7 +200,7 @@ export const useItem = async (req, res) => {
         const before = pet[stat];
         pet[stat] = Math.min(5, Math.max(0, pet[stat] + amount)); // cap 0-5
         if (pet[stat] !== before) effectApplied = true;
-      } else if (["coins", "xp"].includes(stat)) {
+      } else if (["coins"].includes(stat)) {
         const before = pet[stat];
         pet[stat] = Math.max(0, pet[stat] + amount); // no cap, but no negative values
         if (pet[stat] !== before) effectApplied = true;
@@ -265,31 +266,6 @@ export const useItem = async (req, res) => {
 
 // ================ PROGRESSION ======================
 
-// PATCH /api/pet/xp
-export const addXP = async (req, res) => {
-  try {
-    const { amount } = req.body;
-    if (typeof amount !== "number" || amount <= 0) {
-      return res.status(400).json({ message: "XP amount must be a positive integer" });
-    }
-
-    const result = await awardXP(req.user._id, amount);
-
-    res.json({
-      message: `Added ${result.finalAmount} XP`,
-      pet: result.pet,
-    });
-  } catch (error) {
-    if (error.message === "Pet not found") {
-      return res.status(404).json({ message: error.message });
-    }
-    if (error.message.includes("expired")) {
-      return res.status(400).json({ message: error.message });
-    }
-    res.status(500).json({ message: "Failed to add XP", error });
-  }
-};
-
 // PATCH /api/pet/coins
 export const addCoins = async (req, res) => {
   try {
@@ -312,44 +288,5 @@ export const addCoins = async (req, res) => {
       return res.status(400).json({ message: error.message });
     }
     res.status(500).json({ message: "Failed to add coins", error });
-  }
-};
-
-// ==================== LEADERBOARD =======================
-
-// GET /api/pet/leaderboard
-export const getLeaderboard = async (req, res) => {
-  try {
-    // Fetch the current user
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Get all user IDs in the same class
-    const classUserIds = await User.find({ classroomCode: user.classroomCode }).distinct("_id");
-
-    // Fetch pets only from those users
-    let pets = await Pet.find({ status: "alive", owner: { $in: classUserIds } })
-      .populate({
-        path: "owner",
-        select: "initials classroomCode",
-      })
-      .sort({ level: -1, "experience.current": -1, coins: -1 }) // ranking order priority: first by lvl, then xp, then coins
-      .limit(20);
-
-    // Add rank to each pet
-    pets = pets.map((pet, index) => ({
-      rank: index + 1,
-      ...pet.toObject(),
-    }));
-
-    res.json({
-      message: "Leaderboard retrieved",
-      classroomCode: user.classroomCode,
-      leaderboard: pets,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch leaderboard", error });
   }
 };

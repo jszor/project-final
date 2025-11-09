@@ -35,20 +35,6 @@ const petSchema = new mongoose.Schema(
       min: 0,
       max: 998,
     },
-    experience: {
-      current: {
-        type: Number,
-        default: 0,
-      },
-      required: {
-        type: Number,
-        default: 100,
-      },
-    },
-    level: {
-      type: Number,
-      default: 1,
-    },
     inventory: [
       {
         itemName: String,
@@ -81,7 +67,7 @@ const petSchema = new mongoose.Schema(
       {
         type: {
           type: String,
-          enum: ["statFreeze", "doubleCoins", "doubleXP"], // expand later potentially
+          enum: ["statFreeze", "doubleCoins"], // expand later potentially
           required: true,
         },
         expiresAt: {

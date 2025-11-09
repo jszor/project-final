@@ -6,7 +6,6 @@ import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
 import petRoutes from "./routes/petRoutes.js";
 import storeRoutes from "./routes/storeRoutes.js";
-import exerciseRoutes from "./routes/exerciseRoutes.js";
 import "./jobs/petCron.js";
 
 dotenv.config();
@@ -40,9 +39,7 @@ app.use("/api/auth", authRoutes);
 // Endpoint for adding item to inventory.
 // Endpoint for removing item from inventory. 
 // Endpoint for using items on pet.
-// Endpoint for adding XP to pet.
 // Endpoint for adding coins to pet.
-// Endpoint for calculating position on leaderboard.
 
 app.use("/api/pet", petRoutes);
 
@@ -51,12 +48,6 @@ app.use("/api/pet", petRoutes);
 // Endpoint for buying item from store
 
 app.use("/api/store", storeRoutes);
-
-// Endpoint for creating exercise
-// Endpoint for fetching exercises by classroomCode
-// Endpoint for submitting exercise
-
-app.use("/api/exercises", exerciseRoutes);
 
 // Start the server
 app.listen(port, () => {

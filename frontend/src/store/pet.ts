@@ -18,11 +18,6 @@ export type Pet = {
   happiness: number;
   hunger: number;
   coins: number;
-  experience: {
-    current: number;
-    required: number;
-  };
-  level: number;
   inventory: InventoryItem[];
   lastUpdated: string;
   statTimers: {
@@ -37,7 +32,7 @@ export type Pet = {
     nextSicknessTime: string;
   };
   activePowerups: {
-    type: "statFreeze" | "doubleCoins" | "doubleXP";
+    type: "statFreeze" | "doubleCoins";
     expiresAt: string;
   }[];
   status: "alive" | "expired";
@@ -45,41 +40,31 @@ export type Pet = {
   expiredAt?: string;
 };
 
-export type LeaderboardEntry = Pet & {
-  rank: number;
-};
-
 // Store state
 type PetState = {
   pet: Pet | null;
-  leaderboard: LeaderboardEntry[];
   loading: boolean;
   error: string | null;
 
   // actions
   fetchPet: () => Promise<void>;
   useItem: (itemName: string) => Promise<{ success: boolean; message: string }>;
-  addXP: (amount: number) => Promise<void>;
   addCoins: (amount: number) => Promise<void>;
   fetchInventory: () => Promise<void>;
   addItem: (item: InventoryItem) => Promise<void>;
   removeItem: (itemName: string, quantity?: number) => Promise<void>;
-  fetchLeaderboard: () => Promise<void>;
 
   // computed selectors
   isAlive: () => boolean;
-  progressPercent: () => number;
   foodItems: () => InventoryItem[];
   toyItems: () => InventoryItem[];
   medicineItems: () => InventoryItem[];
   powerupItems: () => InventoryItem[];
-  playerRank: () => number | null;
 };
 
 // Zustand store
 export const usePetStore = create<PetState>((set, get) => ({
   pet: null,
-  leaderboard: [],
   loading: false,
   error: null,
 
@@ -128,25 +113,6 @@ export const usePetStore = create<PetState>((set, get) => ({
       return { success: false, message: err.message };
     } finally {
       set({ loading: false });
-    }
-  },
-
-  addXP: async (amount: number) => {
-    try {
-      const token = localStorage.getItem("authToken");
-      const res = await fetch(`${API_URL}/api/pet/xp`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-        body: JSON.stringify({ amount }),
-      });
-      if (!res.ok) throw new Error(await res.text());
-      const data: Pet = await res.json();
-      set({ pet: data });
-    } catch (err: any) {
-      set({ error: err.message });
     }
   },
 
@@ -234,33 +200,10 @@ export const usePetStore = create<PetState>((set, get) => ({
     }
   },
 
-  fetchLeaderboard: async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      const res = await fetch(`${API_URL}/api/pet/leaderboard`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-      });
-      if (!res.ok) throw new Error(await res.text());
-      const data = await res.json();
-      set({ leaderboard: data.leaderboard });
-    } catch (err: any) {
-      set({ error: err.message });
-    }
-  },
-
   // ----- Selectors -----
   isAlive: () => {
     const pet = get().pet;
     return pet?.status === "alive";
-  },
-
-  progressPercent: () => {
-    const pet = get().pet;
-    if (!pet) return 0;
-    return (pet.experience.current / pet.experience.required) * 100;
   },
 
   foodItems: () =>
@@ -271,11 +214,4 @@ export const usePetStore = create<PetState>((set, get) => ({
     get().pet?.inventory.filter((i) => i.category === "medicine") ?? [],
   powerupItems: () =>
     get().pet?.inventory.filter((i) => i.category === "powerup") ?? [],
-
-  playerRank: () => {
-    const { leaderboard, pet } = get();
-    if (!pet) return null;
-    const entry = leaderboard.find((e) => e._id === pet._id);
-    return entry?.rank ?? null;
-  },
 }));

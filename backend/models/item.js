@@ -16,7 +16,7 @@ const itemSchema = new mongoose.Schema({
       {
         stat: {
           type: String,
-          enum: ["hunger", "happiness", "health", "coins", "xp"],
+          enum: ["hunger", "happiness", "health", "coins"],
         },
         amount: Number,
       },
@@ -42,7 +42,7 @@ const itemSchema = new mongoose.Schema({
   powerup: {
     type: {
       type: String,
-      enum: ["statFreeze", "doubleCoins", "doubleXP"], // add more later if need be
+      enum: ["statFreeze", "doubleCoins"], // add more later if need be
     },
     duration: Number, // in ms, e.g. 30 * 60 * 1000 (that equals 30 mins)
     default: {}

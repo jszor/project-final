@@ -8,9 +8,9 @@ export type StoreItem = {
   _id: string
   name: string
   category: 'food' | 'toy' | 'medicine' | 'powerup' | 'misc'
-  effects: { stat: 'hunger' | 'happiness' | 'health' | 'coins' | 'xp'; amount: number }[]
+  effects: { stat: 'hunger' | 'happiness' | 'health' | 'coins'; amount: number }[]
   conditions: { condition: 'isSick' | 'isPooped'; setTo: boolean }[]
-  powerup?: { type: 'statFreeze' | 'doubleCoins' | 'doubleXP'; duration: number }
+  powerup?: { type: 'statFreeze' | 'doubleCoins'; duration: number }
   price: number
   description?: string
 }
