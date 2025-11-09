@@ -1,6 +1,6 @@
 # Final Project
 
-BrainPet is a tamagotchi-like app where the goal is to keep your virtual pet alive by tending to its needs.
+BrainPet is a tamagotchi-like web app where the goal is to keep your virtual pet alive by tending to its needs.
 
 ## The problem
 
