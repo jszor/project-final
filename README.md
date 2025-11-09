@@ -1,13 +1,29 @@
 # Final Project
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+BrainPet is a tamagotchi-like app where the goal is to keep your virtual pet alive by tending to its needs.
 
 ## The problem
 
 Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
+My goal was to create a virtual pet app that could integrate a learning aspect that allowed my students to solve exercises and gain coins and experience for their pets. The scope was a little ambitious for the given time frame, so it ended up just being a regular tamagotchi app for the hand-in, but I intend on developing the original idea later down the line.
+
+The technologies used in this project are:
+
+Frontend: React + TypeScript, TailwindCSS
+Backend: Node.js + Express
+Database: MongoDB + mongoose
+Authentication: JWT
+Navigation: TanStack Router
+State management: Zustand
+External libraries: Framer Motion + node-cron + bcrypt
+Extracurricular hooks: useNavigate, useLocation.
+
+Other tools: Figma, Postman, Lighthouse, Trello.
+
+The application is responsive for mobile, tablet and desktop (320px - 1600px) and supported on Chrome, Safari and Firefox. It follows accessibility standards, clean code practices and has a 100% score on Lighthouse.
+
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Deployed frontend: https://brainpet.netlify.app/
+Deployed backend: https://project-final-wgeu.onrender.com/
