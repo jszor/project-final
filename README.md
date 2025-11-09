@@ -12,7 +12,7 @@ My goal was to create a virtual pet app that could integrate a learning aspect t
 - Backend: Node.js + Express
 - Database: MongoDB + mongoose
 - Authentication: JWT
-- Navigation: TanStack Router
+- Navigation: TanStack Router (approved by Matilda)
 - State management: Zustand
 - External libraries: Framer Motion + node-cron + bcrypt
 - Extracurricular hooks: useNavigate, useLocation.
