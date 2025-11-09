@@ -15,21 +15,21 @@ function Stats() {
   }, [fetchPet])
 
   if (loading) {
-    return <div className="flex flex-col h-full justify-center items-center text-center px-[2rem] text-ammo-100">Loading pet stats...</div>
+    return <div className="flex flex-col h-full justify-center items-center text-center px-[1.5rem] text-ammo-100 text-[0.75rem] xs:text-[1rem] sm:text-[1.5rem]">Loading pet stats...</div>
   }
 
   if (error) {
-    return <div className="flex flex-col h-full justify-center items-center text-center px-[2rem] text-ammo-100">Error: {error}</div>
+    return <div className="flex flex-col h-full justify-center items-center text-center px-[2rem] text-ammo-100 text-[0.75rem] xs:text-[1rem] sm:text-[1.5rem]">Error: {error}</div>
   }
 
   if (!pet) {
-    return <div className="flex flex-col h-full justify-center items-center text-center px-[2rem] text-ammo-100">No pet found</div>
+    return <div className="flex flex-col h-full justify-center items-center text-center px-[2rem] text-ammo-100 text-[0.75rem] xs:text-[1rem] sm:text-[1.5rem]">No pet found</div>
   }
 
   return (
     <div className="flex flex-col gap-[1.5rem] h-full justify-center items-center text-ammo-100">
-      <h2 className="text-[1.5rem] mb-[1rem] text-center">PET STATS:</h2>
-      <ul className="flex flex-col gap-[1rem] text-[16px]">
+      <h2 className="text-[0.75rem] xs:text-[1rem] sm:text-[1.5rem] mb-[1rem] text-center">PET STATS:</h2>
+      <ul className="flex flex-col gap-[1rem] text-[0.625rem] xs:text-[1rem] sm:text-[1.125rem]">
         <li className="text-center">
           <span>Name: </span>
           <span>{pet.name}</span>
@@ -72,7 +72,7 @@ function Stats() {
         </li>
       </ul>
       <Link to="/app/menu">
-        <div className="text-[1.5rem] mt-[1rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
+        <div className="text-[0.75rem] xs:text-[1rem] sm:text-[1.5rem] mt-[1rem] pt-1 pb-3 pr-6 pl-5 rounded-[25px] border-2 hover:bg-ammo-600">
           ⏎
         </div>
       </Link>

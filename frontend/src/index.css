@@ -18,6 +18,8 @@
   --color-customs-400: #89a257;
 
   --font-pstp: "Press Start 2P", "sans-serif";
+
+  --breakpoint-xs: 420px;
 }
 
 @layer base {
