@@ -8,20 +8,19 @@ My goal was to create a virtual pet app that could integrate a learning aspect t
 
 ## Technologies used
 
-Frontend: React + TypeScript, TailwindCSS
-Backend: Node.js + Express
-Database: MongoDB + mongoose
-Authentication: JWT
-Navigation: TanStack Router
-State management: Zustand
-External libraries: Framer Motion + node-cron + bcrypt
-Extracurricular hooks: useNavigate, useLocation.
-
-Additional tools: Figma, Postman, Lighthouse, Trello.
+- Frontend: React + TypeScript, TailwindCSS
+- Backend: Node.js + Express
+- Database: MongoDB + mongoose
+- Authentication: JWT
+- Navigation: TanStack Router
+- State management: Zustand
+- External libraries: Framer Motion + node-cron + bcrypt
+- Extracurricular hooks: useNavigate, useLocation.
+- Additional tools: Figma, Postman, Lighthouse, Trello.
 
 The application is responsive for mobile, tablet and desktop (320px - 1600px) and supported on Chrome, Safari and Firefox. It follows accessibility standards, clean code practices and has a 100% score on Lighthouse.
 
 ## View it live
 
-Deployed frontend: https://brainpet.netlify.app/
-Deployed backend: https://project-final-wgeu.onrender.com/
+- Deployed frontend: https://brainpet.netlify.app/
+- Deployed backend: https://project-final-wgeu.onrender.com/
