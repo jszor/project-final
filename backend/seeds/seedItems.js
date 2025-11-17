@@ -21,7 +21,7 @@ const items = [
       { stat: "health", amount: 1 },
     ],
     price: 18,
-    description: "Your pet's favorite berry - healthy and delicious!"
+    description: "Your pet's favorite healthy snack!"
   },
   {
     name: "Sushi",
@@ -38,7 +38,7 @@ const items = [
       { stat: "happiness", amount: 1 },
     ],
     price: 35,
-    description: "A hearty burrito to keep your pet full and happy. How nice!"
+    description: "A juicy burrito for your pet. How nice!"
   },
   {
     name: "Yo-yo",
