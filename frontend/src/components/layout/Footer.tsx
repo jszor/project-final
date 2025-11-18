@@ -7,13 +7,13 @@ export const Footer = () => {
       <Link to="/" className="underline pt-[6px] hidden lg:block">
         Home
       </Link>
-      <Link to="/about" className="underline pt-[6px] hidden lg:block">
+      <Link to="/" className="underline pt-[6px] hidden lg:block">
         About
       </Link>
-      <Link to="/privpolicy" className="underline pt-[6px] hidden lg:block">
+      <Link to="/" className="underline pt-[6px] hidden lg:block">
         Privacy Policy
       </Link>
-      <Link to="/tos" className="underline pt-[6px] hidden lg:block">
+      <Link to="/" className="underline pt-[6px] hidden lg:block">
         Terms of Service
       </Link>
       <div className="flex items-center gap-1">
