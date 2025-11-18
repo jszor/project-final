@@ -79,7 +79,7 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-8 py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline hover:bg-ammo-600 disabled:opacity-50"
+              className="mt-[1rem] rounded-[25px] cursor-pointer bg-ammo-700 px-6 py-2 xs:px-8 xs:py-3 text-ammo-100 outline-2 outline-ammo-100 focus:underline hover:bg-ammo-600 disabled:opacity-50"
             >
               Log In
             </button>
